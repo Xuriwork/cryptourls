@@ -32,18 +32,19 @@ def coindesk():
         if None in (title_element, time_element, link_element):
             continue
         article_title = title_element.text.strip()
-        article_date = time_element.text.strip()
+        stripped_date = time_element.text.strip()
+        article_date = str(dateparser.parse(stripped_date))[0:10]
         document_title = slugify(article_title, to_lower = True, max_length = 60)
         article_link = 'https://www.coindesk.com' + link_element
 
         scrapped_articles_ref = db.collection(
             'scrapped_articles').document(document_title)
         scrapped_articles_ref.set({
-                u'publisher': u'CoinDesk',
-                u'document_title': document_title,
-                u'article_title': article_title,
-                u'article_date': article_date,
-                u'article_link': article_link
+                'publisher': 'CoinDesk',
+                'document_title': document_title,
+                'article_title': article_title,
+                'article_date': article_date,
+                'article_link': article_link
         })
 
 
@@ -74,12 +75,12 @@ def crypto_potato():
         scrapped_articles_ref = db.collection(
             'scrapped_articles').document(document_title)
         scrapped_articles_ref.set({
-                u'publisher': u'CryptoPotato',
-                u'document_title': document_title,
-                u'article_title': article_title,
-                u'article_author': article_author,
-                u'article_date': article_date,
-                u'article_link': article_link
+                'publisher': 'CryptoPotato',
+                'document_title': document_title,
+                'article_title': article_title,
+                'article_author': article_author,
+                'article_date': article_date,
+                'article_link': article_link
         })
 
 
@@ -99,21 +100,18 @@ def news_btc():
         if None in (title_element, time_element, article_link):
             continue
         article_title = title_element.text.strip()
-        article_date = str(dateparser.parse(time_element.text.strip()))[: -3]
-        trimed_date = article_date.replace(' ', '')
-        newformat_date = trimed_date[: 10] + 'T' + trimed_date[10: ]
-        date_time_obj = datetime.strptime(newformat_date, "%Y-%m-%dT%H:%M:%S.%f")
-        formated_date = date_time_obj.strftime("%Y-%m-%d")
+        stripped_date = time_element.text.strip()
+        article_date = str(dateparser.parse(stripped_date))[0:10]
         document_title = slugify(article_title, to_lower = True, max_length = 60)
 
         scrapped_articles_ref = db.collection(
             'scrapped_articles').document(document_title)
         scrapped_articles_ref.set({
-            u'publisher': u'NewsBTC',
-            u'document_title': document_title,
-            u'article_title': article_title,
-            u'article_date': formated_date,
-            u'article_link': article_link
+            'publisher': 'NewsBTC',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
         })
 
 def bitcoin_news():

@@ -13,6 +13,7 @@ const HomeContainer = () => {
 		firebase
 			.firestore()
 			.collection('scrapped_articles')
+			.orderBy('article_date', 'desc')
 			.get()
 			.then((snapshot) => {
 				const _articles = [];
