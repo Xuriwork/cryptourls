@@ -39,11 +39,11 @@ def coindesk():
         scrapped_articles_ref = db.collection(
             'scrapped_articles').document(document_title)
         scrapped_articles_ref.set({
-                'publisher': 'CoinDesk',
-                'document_title': document_title,
-                'article_title': article_title,
-                'article_date': article_date,
-                'article_link': article_link
+                u'publisher': u'CoinDesk',
+                u'document_title': document_title,
+                u'article_title': article_title,
+                u'article_date': article_date,
+                u'article_link': article_link
         })
 
 
@@ -74,12 +74,12 @@ def crypto_potato():
         scrapped_articles_ref = db.collection(
             'scrapped_articles').document(document_title)
         scrapped_articles_ref.set({
-                'publisher': 'CryptoPotato',
-                'document_title': document_title,
-                'article_title': article_title,
-                'article_author': article_author,
-                'article_date': article_date,
-                'article_link': article_link
+                u'publisher': u'CryptoPotato',
+                u'document_title': document_title,
+                u'article_title': article_title,
+                u'article_author': article_author,
+                u'article_date': article_date,
+                u'article_link': article_link
         })
 
 
@@ -109,11 +109,11 @@ def news_btc():
         scrapped_articles_ref = db.collection(
             'scrapped_articles').document(document_title)
         scrapped_articles_ref.set({
-            'publisher': 'NewsBTC',
-            'document_title': document_title,
-            'article_title': article_title,
-            'article_date': formated_date,
-            'article_link': article_link
+            u'publisher': u'NewsBTC',
+            u'document_title': document_title,
+            u'article_title': article_title,
+            u'article_date': formated_date,
+            u'article_link': article_link
         })
 
 def bitcoin_news():
