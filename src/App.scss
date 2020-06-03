@@ -1,0 +1,396 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;600&display=swap');
+
+/* titillium-web-300 - latin */
+@font-face {
+	font-family: 'Titillium Web';
+	font-style: normal;
+	font-weight: 300;
+	font-display: swap;
+	src: url('./assets/fonts/titillium-web/titillium-web-v8-latin-300.eot'); /* IE9 Compat Modes */
+	src: local('Titillium Web Light'), local('TitilliumWeb-Light'),
+		url('./assets/fonts/titillium-web/titillium-web-v8-latin-300.eot?#iefix')
+			format('embedded-opentype'),
+		/* IE6-IE8 */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-300.woff2')
+			format('woff2'),
+		/* Super Modern Browsers */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-300.woff')
+			format('woff'),
+		/* Modern Browsers */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-300.ttf')
+			format('truetype'),
+		/* Safari, Android, iOS */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-300.svg#TitilliumWeb')
+			format('svg'); /* Legacy iOS */
+}
+/* titillium-web-regular - latin */
+@font-face {
+	font-family: 'Titillium Web';
+	font-style: normal;
+	font-weight: 400;
+	font-display: swap;
+	src: url('./assets/fonts/titillium-web/titillium-web-v8-latin-regular.eot'); /* IE9 Compat Modes */
+	src: local('Titillium Web Regular'), local('TitilliumWeb-Regular'),
+		url('./assets/fonts/titillium-web/titillium-web-v8-latin-regular.eot?#iefix')
+			format('embedded-opentype'),
+		/* IE6-IE8 */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-regular.woff2')
+			format('woff2'),
+		/* Super Modern Browsers */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-regular.woff')
+			format('woff'),
+		/* Modern Browsers */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-regular.ttf')
+			format('truetype'),
+		/* Safari, Android, iOS */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-regular.svg#TitilliumWeb')
+			format('svg'); /* Legacy iOS */
+}
+/* titillium-web-600 - latin */
+@font-face {
+	font-family: 'Titillium Web';
+	font-style: normal;
+	font-weight: 600;
+	font-display: swap;
+	src: url('./assets/fonts/titillium-web/titillium-web-v8-latin-600.eot'); /* IE9 Compat Modes */
+	src: local('Titillium Web SemiBold'), local('TitilliumWeb-SemiBold'),
+		url('./assets/fonts/titillium-web/titillium-web-v8-latin-600.eot?#iefix')
+			format('embedded-opentype'),
+		/* IE6-IE8 */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-600.woff2')
+			format('woff2'),
+		/* Super Modern Browsers */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-600.woff')
+			format('woff'),
+		/* Modern Browsers */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-600.ttf')
+			format('truetype'),
+		/* Safari, Android, iOS */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-600.svg#TitilliumWeb')
+			format('svg'); /* Legacy iOS */
+}
+/* titillium-web-700 - latin */
+@font-face {
+	font-family: 'Titillium Web';
+	font-style: normal;
+	font-weight: 700;
+	font-display: swap;
+	src: url('./assets/fonts/titillium-web/titillium-web-v8-latin-700.eot'); /* IE9 Compat Modes */
+	src: local('Titillium Web Bold'), local('TitilliumWeb-Bold'),
+		url('./assets/fonts/titillium-web/titillium-web-v8-latin-700.eot?#iefix')
+			format('embedded-opentype'),
+		/* IE6-IE8 */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-700.woff2')
+			format('woff2'),
+		/* Super Modern Browsers */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-700.woff')
+			format('woff'),
+		/* Modern Browsers */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-700.ttf')
+			format('truetype'),
+		/* Safari, Android, iOS */
+			url('./assets/fonts/titillium-web/titillium-web-v8-latin-700.svg#TitilliumWeb')
+			format('svg'); /* Legacy iOS */
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	list-style-type: none;
+	text-decoration: none;
+	font-family: 'Titillium Web', sans-serif !important;
+}
+
+::-webkit-scrollbar {
+	width: 8px;
+	background-color: #f5f5f5;
+}
+
+::-webkit-scrollbar-thumb {
+	background-color: #393957;
+}
+
+%flex-center {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+}
+
+%flex-center-column {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+a {
+	color: #000;
+}
+
+input {
+	background: #f7f8f9;
+}
+
+.app-container {
+	height: 100%;
+}
+
+.loading-component {
+	@extend %flex-center;
+	width: 100%;
+	height: 100%;
+	height: 100%;
+
+	.loader {
+		width: 40px;
+		height: 40px;
+		border: solid 4px;
+		border-color: #000000 #00000010 #00000010 #00000010;
+		position: relative;
+		animation-name: stagger;
+		animation-duration: 1.5s;
+		animation-iteration-count: infinite;
+		animation-timing-function: linear;
+	}
+
+	@keyframes stagger {
+		25% {
+			border-color: #00000010 #000000 #00000010 #00000010;
+		}
+		50% {
+			border-color: #00000010 #00000010 #000000 #00000010;
+		}
+		75% {
+			border-color: #00000010 #00000010 #00000010 #000000;
+		}
+	}
+}
+
+.header-component {
+	background-color: #393957;
+
+	nav {
+		height: 60px;
+		padding: 8px 30px;
+		display: flex;
+		max-width: 1400px;
+		margin: 0 auto;
+
+		.crypto_urls-logo-container {
+			@extend %flex-center;
+
+			a {
+				display: flex;
+				color: #fff;
+			}
+
+			.crypto_urls-logo {
+				width: 210px;
+			}
+		}
+
+		.default-profile-icon-container {
+			@extend %flex-center;
+			margin-left: auto;
+
+			img {
+				width: 30px;
+			}
+		}
+	}
+
+	.search-component {
+		width: 1400px;
+		max-width: 95%;
+		margin: 0 auto;
+		padding-top: 5px;
+		padding-bottom: 15px;
+
+		.search-input-container {
+			@extend %flex-center;
+			width: 100%;
+			height: 100%;
+
+			.search-input {
+				position: relative;
+				width: 100%;
+				padding: 6px 10px;
+				color: #525252;
+				font-size: 1em;
+				font-weight: 400;
+				letter-spacing: 2px;
+				border: none;
+				border-radius: 5px;
+				outline: none;
+				background-image: url('./assets/icons/search-outline.svg');
+				background-size: 18px;
+				background-repeat: no-repeat;
+				background-position: 8px 10px;
+				text-indent: 25px;
+
+				&:focus {
+					background-image: none;
+					text-indent: 0px;
+				}
+			}
+		}
+	}
+}
+
+.home-component {
+	@extend %flex-center-column;
+	text-align: center;
+	height: auto;
+	overflow: visible;
+	color: #40514e;
+	margin-top: 30px;
+	margin-bottom: 10px;
+	box-sizing: border-box;
+
+	.sites-container {
+		height: auto;
+		width: 100%;
+		max-width: 1400px;
+		box-sizing: border-box;
+		text-align: left;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+		justify-items: center;
+
+		.publisher-block {
+			max-width: 95%;
+			width: 480px;
+			border-radius: 10px;
+			padding: 5px;
+			box-sizing: border-box;
+			
+			&:not(:last-of-type) {
+				margin-bottom: 30px;
+			}
+
+			img {
+				max-width: 50px;
+				width: 30px;
+			}
+
+			&::after {
+				content: "";
+				opacity: 0;
+			}
+
+			&:hover {
+				
+				&::after {
+					content: "";
+					position: absolute;
+					height: 18px;
+					display: block;
+					width: 420px;
+					opacity: 0.8;
+					background: linear-gradient(to top, rgba(0, 0, 0, 0.068), transparent);
+					transition: opacity 0.5s ease;
+					border-radius: 0 0 6px 6px;
+				}
+			}
+			
+		}
+
+
+
+		.publisher-header {
+			height: 30px;
+			padding: 10px 15px;
+			border-radius: 5px;
+			display: flex;
+			align-items: center;
+			font-weight: 600;
+			color: #fff;
+
+			img {
+				margin-right: 10px;
+			}
+		}
+
+		.publisher-header-cryptopotato {
+			background: linear-gradient(to bottom, #fdd419, #ffbd00);
+		}
+
+		.publisher-header-coindesk {
+			background: linear-gradient(to bottom, #172341, #161f36);
+		}
+
+		.publisher-header-newsbtc {
+			background: linear-gradient(to bottom, rgb(61, 84, 102), #2e4251);
+		}
+
+		.publisher-header-eosio {
+			background: linear-gradient(to bottom, #ffffff, #f5f5f58f);
+			color: #393957;
+
+			img {
+				width: 40px;
+			}
+		}
+
+		.publisher-header-bitcoindc {
+			background: linear-gradient(to bottom, #ffffff, #f5f5f58f);
+			color: #393957;
+		}
+
+		.publisher-header-ewn {
+			background: linear-gradient(to bottom, #1e2425, #101314);
+		}
+
+		.site-container {
+			overflow-y: scroll;
+			height: 400px;
+		}
+
+		::-webkit-scrollbar {
+			width: 0px;
+			background: transparent;
+			display: none !important;
+		}
+
+		.publisher-card {
+			display: flex;
+			flex-direction: column;
+			border-bottom: 1px solid #edf0f9;
+
+			article {
+				display: flex;
+				flex-direction: column;
+				text-align: left;
+			}
+
+			a {
+				font-weight: 600;
+				&:hover {
+					text-decoration: underline;
+				}
+			}
+
+			.article-author {
+				color: #2f89fc;
+			}
+		}
+	}
+}
+
+.not-found-component {
+	@extend %flex-center-column;
+	height: 100%;
+	background-color: #f7f8f9;
+	color: #222222;
+	font-size: 3rem;
+	text-align: center;
+
+	h1 {
+		font-weight: 100;
+	}
+
+	h4 {
+		font-weight: 600;
+	}
+}
