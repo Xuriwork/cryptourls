@@ -10,6 +10,8 @@ A content aggregator built in React and Python, web scraps content and display i
 
 ![CryptoURLs Logo](https://github.com/Xuriwork/cryptourls/blob/master/images/cryptourls-page.png)
 
+[Link to the Python Code, which is run on GCP](https://github.com/Xuriwork/cryptourls/blob/master/python/web_scrapper.py)
+
 ## Installation
 
 Use yarn or npm to install dependencies
