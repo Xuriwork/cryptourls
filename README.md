@@ -8,7 +8,7 @@ A content aggregator built in React and Python, web scraps content and display i
 - GCP - Cloud Functions and Cloud Scheduler - used to run the python web scrapper code every 2 hours to scrap content and save the data to the Firestore database.
 - Firebase - used for hosting and database needs
 
-![CryptoURLs Logo](./images/cryptourls-page.png)
+![CryptoURLs Logo](cryptourls-page.png)
 
 ## Installation
 
