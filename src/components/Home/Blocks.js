@@ -17,7 +17,7 @@ export const CryptoPotatoBlock = ({ cryptopotatoArticles }) => {
 			<div className='site-container'>
 				{cryptopotatoArticles.map((article) => {
 					return (
-						<div key={article.document_title} className='publisher-card'>
+						<div key={article.document_title} className='card-content-container'>
 							<article>
 								<a
 									className='article-title'
@@ -49,7 +49,7 @@ export const CoinDeskBlock = ({ coindeskArticles }) => {
 			<div className='site-container'>
 				{coindeskArticles.map((article) => {
 					return (
-						<div key={article.document_title} className='publisher-card'>
+						<div key={article.document_title} className='card-content-container'>
 							<article>
 								<a
 									className='article-title'
@@ -80,7 +80,7 @@ export const NewsBTCArticles = ({ newsBTCArticles }) => {
 			<div className='site-container'>
 				{newsBTCArticles.map((article) => {
 					return (
-						<div key={article.document_title} className='publisher-card'>
+						<div key={article.document_title} className='card-content-container'>
 							<article>
 								<a
 									className='article-title'
@@ -111,7 +111,7 @@ export const BitcoinDotComArticles = ({ bitcoinDotComArticles }) => {
 			<div className='site-container'>
 				{bitcoinDotComArticles.map((article) => {
 					return (
-						<div key={article.document_title} className='publisher-card'>
+						<div key={article.document_title} className='card-content-container'>
 							<article>
 								<a
 									className='article-title'
@@ -142,7 +142,7 @@ export const EosioArticles = ({ eosioArticles }) => {
 			<div className='site-container'>
 				{eosioArticles.map((article) => {
 					return (
-						<div key={article.document_title} className='publisher-card'>
+						<div key={article.document_title} className='card-content-container'>
 							<article>
 								<a
 									className='article-title'
@@ -173,7 +173,7 @@ export const EtheruemWorldNewsArticles = ({ etheruemWorldNewsArticles }) => {
 			<div className='site-container'>
 				{etheruemWorldNewsArticles.map((article) => {
 					return (
-						<div key={article.document_title} className='publisher-card'>
+						<div key={article.document_title} className='card-content-container'>
 							<article>
 								<a
 									className='article-title'

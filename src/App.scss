@@ -171,9 +171,10 @@ input {
 	background-color: #393957;
 
 	nav {
+		display: flex;
+		justify-content: space-between;
 		height: 60px;
 		padding: 8px 30px;
-		display: flex;
 		max-width: 1400px;
 		margin: 0 auto;
 
@@ -190,9 +191,8 @@ input {
 			}
 		}
 
-		.default-profile-icon-container {
+		.hamburger-menu-container {
 			@extend %flex-center;
-			margin-left: auto;
 
 			img {
 				width: 30px;
@@ -257,6 +257,7 @@ input {
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
 		justify-items: center;
+		justify-content: center;
 
 		.publisher-block {
 			max-width: 95%;
@@ -264,9 +265,9 @@ input {
 			border-radius: 10px;
 			padding: 5px;
 			box-sizing: border-box;
-			
+
 			&:not(:last-of-type) {
-				margin-bottom: 30px;
+				margin-bottom: 20px;
 			}
 
 			img {
@@ -275,28 +276,29 @@ input {
 			}
 
 			&::after {
-				content: "";
+				content: '';
 				opacity: 0;
 			}
 
 			&:hover {
-				
 				&::after {
-					content: "";
+					content: '';
 					position: absolute;
 					height: 18px;
 					display: block;
-					width: 420px;
+					max-width: 95%;
+					width: 440px;
 					opacity: 0.8;
-					background: linear-gradient(to top, rgba(0, 0, 0, 0.068), transparent);
+					background: linear-gradient(
+						to top,
+						rgba(0, 0, 0, 0.068),
+						transparent
+					);
 					transition: opacity 0.5s ease;
 					border-radius: 0 0 6px 6px;
 				}
 			}
-			
 		}
-
-
 
 		.publisher-header {
 			height: 30px;
@@ -334,7 +336,7 @@ input {
 		}
 
 		.publisher-header-bitcoindc {
-			background: linear-gradient(to bottom, #ffffff, #f5f5f58f);
+			background: linear-gradient(to bottom, #ffffff, #f8f8f88f);
 			color: #393957;
 		}
 
@@ -353,7 +355,7 @@ input {
 			display: none !important;
 		}
 
-		.publisher-card {
+		.card-content-container {
 			display: flex;
 			flex-direction: column;
 			border-bottom: 1px solid #edf0f9;
@@ -365,9 +367,14 @@ input {
 			}
 
 			a {
-				font-weight: 600;
+				font-weight: 300;
+				font-size: 1rem;
+				color: #0060a0;
+				text-decoration: none;
+				border-bottom: 1px solid rgba(0, 96, 160, 0.15);
+
 				&:hover {
-					text-decoration: underline;
+					color: #7d93f7;
 				}
 			}
 
@@ -392,5 +399,13 @@ input {
 
 	h4 {
 		font-weight: 600;
+	}
+}
+
+@media (max-width: 950px) {
+	.header-component {
+		nav {
+			padding: 8px 18px;
+		}
 	}
 }

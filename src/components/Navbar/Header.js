@@ -15,7 +15,7 @@ const Header = () => {
 						<img src={CryptoURLsLogo} alt='CryptoURLs Logo' className='crypto_urls-logo' />
 					</Link>
 				</div>
-				<div className='default-profile-icon-container'>
+				<div className='hamburger-menu-container'>
 					<img src={HamburgerMenuIcon} alt='default profile icon' />
 				</div>
 			</nav>
