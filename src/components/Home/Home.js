@@ -16,7 +16,7 @@ const Home = ({
 	etheruemWorldNewsArticles,
 	eosioArticles,
 }) => {
-	console.log(cryptopotatoArticles);
+	
 	return (
 		<>
 			<div className='home-component'>

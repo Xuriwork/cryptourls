@@ -193,9 +193,44 @@ input {
 
 		.hamburger-menu-container {
 			@extend %flex-center;
+			position: relative;
+			cursor: pointer;
 
 			img {
 				width: 30px;
+			}
+
+			.desktop-menu {
+				background-color: #fff;
+				width: 250px;
+				position: absolute;
+				top: 60px;
+				right: 0;
+				z-index: 2;
+				border-radius: 5px;
+				box-shadow: 0 8px 10px 1px rgba(56, 56, 56, 0.12), 0 3px 14px 2px rgba(56, 56, 56, 0.12), 0 5px 5px -3px rgba(56, 56, 56, 0.12);
+				padding: 15px;
+
+				> div {
+					display: flex;
+					align-items: center;
+					padding: 8px 20px;
+					box-sizing: border-box;
+					border-radius: 5px;
+
+					svg {
+						margin-right: 10px;
+					}
+
+					&:hover {
+						background-color: #f5f5f5;
+						cursor: pointer;
+					}
+				}
+
+				> div:nth-child(2) {
+					margin: 10px 0;
+				}
 			}
 		}
 	}

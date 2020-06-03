@@ -7,18 +7,12 @@ import Loading from '../Loading';
 const HomeContainer = () => {
 
 	const [loading, setLoading]  = useState(true);
-	const [coindeskArticles, setCoindeskArticles] = useState([]);
-	const [cryptopotatoArticles, setCryptopotatoArticles] = useState([]);
-	const [newsBTCArticles, setNewsBTCArticles] = useState([]);
-	const [etheruemWorldNewsArticles, setEtheruemWorldNewsArticles] = useState([]);
-	const [eosioArticles, setEOSIOArticles] = useState([]);
-	const [bitcoinDotComArticles, setBitcoinDotComArticles] = useState([]);
+	const [articles, setArticles] = useState({});
     
 	useEffect(() => {
 		firebase
 			.firestore()
 			.collection('scrapped_articles')
-			.where('publisher', '==', 'CryptoPotato')
 			.get()
 			.then((snapshot) => {
 				const _articles = [];
@@ -26,83 +20,35 @@ const HomeContainer = () => {
 					const data = doc.data();
 					_articles.push(data)
 				});
-				setCoindeskArticles(_articles);
-			})
-			.then(() => {
-				firebase
-				.firestore()
-				.collection('scrapped_articles')
-				.where('publisher', '==', 'CoinDesk')
-				.get()
-				.then((snapshot) => {
-					const _articles = [];
-					snapshot.forEach((doc) => {
-						const data = doc.data();
-						_articles.push(data)
-					});
-					setCryptopotatoArticles(_articles);
+				const _coindeskArticles = _articles.filter((article) => {
+					return article.publisher === 'CoinDesk'
 				});
-			})
-			.then(() => {
-				firebase
-				.firestore()
-				.collection('scrapped_articles')
-				.where('publisher', '==', 'NewsBTC')
-				.get()
-				.then((snapshot) => {
-					const _articles = [];
-					snapshot.forEach((doc) => {
-						const data = doc.data();
-						_articles.push(data)
-					});
-					setNewsBTCArticles(_articles);
+				const _cryptopotatoArticles = _articles.filter((article) => {
+					return article.publisher === 'CryptoPotato'
 				});
-			})
-			.then(() => {
-				firebase
-				.firestore()
-				.collection('scrapped_articles')
-				.where('publisher', '==', 'Bitcoin News')
-				.get()
-				.then((snapshot) => {
-					const _articles = [];
-					snapshot.forEach((doc) => {
-						const data = doc.data();
-						_articles.push(data)
-					});
-					setBitcoinDotComArticles(_articles);
+				const _newsBTCArticles = _articles.filter((article) => {
+					return article.publisher === 'NewsBTC'
 				});
-			})
-			.then(() => {
-				firebase
-				.firestore()
-				.collection('scrapped_articles')
-				.where('publisher', '==', 'EOSIO')
-				.get()
-				.then((snapshot) => {
-					const _articles = [];
-					snapshot.forEach((doc) => {
-						const data = doc.data();
-						_articles.push(data)
-					});
-					setEOSIOArticles(_articles);
+				const _etheruemWorldNewsArticles = _articles.filter((article) => {
+					return article.publisher === 'Ethereum World News'
 				});
-			})
-			.then(() => {
-				firebase
-				.firestore()
-				.collection('scrapped_articles')
-				.where('publisher', '==', 'Ethereum World News')
-				.get()
-				.then((snapshot) => {
-					const _articles = [];
-					snapshot.forEach((doc) => {
-						const data = doc.data();
-						_articles.push(data)
-					});
-					setEtheruemWorldNewsArticles(_articles);
-					setLoading(false);
+				const _eosioArticles = _articles.filter((article) => {
+					return article.publisher === 'EOSIO'
 				});
+				const _bitcoinDotComArticles = _articles.filter((article) => {
+					return article.publisher === 'Bitcoin News'
+				});
+				setArticles({
+					...articles, 
+					coindeskArticles: _coindeskArticles,
+					cryptopotatoArticles: _cryptopotatoArticles,
+					newsBTCArticles: _newsBTCArticles,
+					etheruemWorldNewsArticles: _etheruemWorldNewsArticles,
+					eosioArticles: _eosioArticles,
+					bitcoinDotComArticles: _bitcoinDotComArticles
+				});
+				console.log(_coindeskArticles);
+				setLoading(false);
 			})
 
 	// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -112,12 +58,12 @@ const HomeContainer = () => {
 
 	return (
 	<Home 
-		coindeskArticles={coindeskArticles} 
-		cryptopotatoArticles={cryptopotatoArticles} 
-		newsBTCArticles={newsBTCArticles}
-		etheruemWorldNewsArticles={etheruemWorldNewsArticles}
-		bitcoinDotComArticles={bitcoinDotComArticles}
-		eosioArticles={eosioArticles}
+		coindeskArticles={articles.coindeskArticles} 
+		cryptopotatoArticles={articles.cryptopotatoArticles} 
+		newsBTCArticles={articles.newsBTCArticles}
+		etheruemWorldNewsArticles={articles.etheruemWorldNewsArticles}
+		bitcoinDotComArticles={articles.bitcoinDotComArticles}
+		eosioArticles={articles.eosioArticles}
 	/>
 	);
 };
