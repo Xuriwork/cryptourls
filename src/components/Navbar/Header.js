@@ -1,29 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import Search from '../Search';
 
 import { ReactComponent as FeedbackIcon } from '../../assets/icons/feedback-fill.svg';
 import { ReactComponent as MailIcon } from '../../assets/icons/mail-fill.svg';
-import { ReactComponent as SettingsIcon } from '../../assets/icons/settings-fill.svg';
+import { ReactComponent as PreferencesIcon } from '../../assets/icons/settings-fill.svg';
 import CryptoURLsLogo from '../../assets/icons/cryptourls-logo.svg';
 import HamburgerMenuIcon from '../../assets/icons/hamburger-menu.svg';
+import ModalContext from '../../context/ModalContext';
 
 const Header = () => {
 	const [menu, setMenu] = useState(false);
+	const desktopMenuRef = useRef(null);
 
 	const toggleMenu = () => setMenu(!menu);
 
-	// window.onclick = (event) => {
-	// 	const desktopMenu = document.getElementById('desktop-menu');
-	// 	console.log(menu)
-	// 	if (menu && (event.target !== desktopMenu)) {
-	// 		setMenu(false);
-	// 		console.log('test');
-	// 	};
-	// };
+	
+	const closeMenu = () => {
+		setTimeout(() => {
+			setMenu(false);
+		}, 200);
+		const desktopMenu = document.getElementById('desktop-menu');
+		if (desktopMenu) {
+			desktopMenu.style.animation = 'fadeout 0.3s ease-out';
+		}
+	};
+	
+	useEffect(() => {
+		const handleDocumentClick = (e) => {
+			if (desktopMenuRef.current.contains(e.target)) return;
+			closeMenu();
+		};
 
+		document.addEventListener('mousedown', handleDocumentClick, false);
+	}, []);
 
+	const { handleModal } = useContext(ModalContext);
+
+	const handleToggleModal = (type) => {
+		closeMenu();
+		handleModal(type);
+	};
 
 	return (
 		<div className='header-component'>
@@ -33,14 +51,14 @@ const Header = () => {
 						<img src={CryptoURLsLogo} alt='CryptoURLs Logo' className='crypto_urls-logo' />
 					</Link>
 				</div>
-				<div className='hamburger-menu-container'>
+				<div ref={desktopMenuRef} className='hamburger-menu-container'>
 					<img onClick={toggleMenu} src={HamburgerMenuIcon} alt='default profile icon' />
 					{
 						menu && (
 							<div id='desktop-menu' className='desktop-menu'>
-								<div><SettingsIcon /> Settings</div>
-								<div><MailIcon />Subscribe</div>
-								<div><FeedbackIcon /> Send Feedback</div>
+								<div onClick={() => handleToggleModal('preferences')}><PreferencesIcon /> Preferences</div>
+								<div onClick={() => handleToggleModal('subscribe')}><MailIcon />Subscribe</div>
+								<div onClick={() => handleToggleModal('send-feedback')}><FeedbackIcon /> Send Feedback</div>
 							</div>
 						)
 					}
