@@ -37,7 +37,7 @@ export const Modal = () => {
     }
 
 	const handleFeebackSend = () => {
-		cogoToast.info("Hasn't been send because this is disabled sorry 😥", {
+		cogoToast.info("Hasn't sent, this is disabled sorry 😥", {
 			hideAfter: 5,
 		});
     };

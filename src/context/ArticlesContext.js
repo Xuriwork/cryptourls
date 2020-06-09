@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import firebase from '../utils/Firebase';
 import Loading from '../components/Loading';
 
-export const StateContext = React.createContext();
+export const ArticlesContext = React.createContext();
 
 export const StateProvider = ({ children }) => {
 	const [loading, setLoading] = useState(true);
@@ -38,6 +38,24 @@ export const StateProvider = ({ children }) => {
 				const _bitcoinDotComArticles = _articles.filter((article) => {
 					return article.publisher === 'Bitcoin News';
 				});
+				const _cryptoBriefingArticles = _articles.filter((article) => {
+					return article.publisher === 'Crypto Briefing';
+				});
+				const _cryptoNewsArticles = _articles.filter((article) => {
+					return article.publisher === 'Crypto News';
+				});
+				const _decryptArticles = _articles.filter((article) => {
+					return article.publisher === 'Decrypt';
+				});
+				const _bitcoinistArticles = _articles.filter((article) => {
+					return article.publisher === 'Bitcoinist';
+				});
+				const _theDailyHodlArticles = _articles.filter((article) => {
+					return article.publisher === 'The Daily Hodl';
+				});
+				const _cryptoGlobalArticles = _articles.filter((article) => {
+					return article.publisher === 'CryptoGlobe';
+				});
 				setArticles({
 					coindeskArticles: _coindeskArticles,
 					cryptopotatoArticles: _cryptopotatoArticles,
@@ -45,18 +63,24 @@ export const StateProvider = ({ children }) => {
 					etheruemWorldNewsArticles: _etheruemWorldNewsArticles,
 					eosioArticles: _eosioArticles,
 					bitcoinDotComArticles: _bitcoinDotComArticles,
+					cryptoBriefingArticles: _cryptoBriefingArticles,
+					cryptoNewsArticles: _cryptoNewsArticles,
+					decryptArticles: _decryptArticles,
+					bitcoinistArticles: _bitcoinistArticles,
+					theDailyHodlArticles: _theDailyHodlArticles,
+					cryptoGlobalArticles: _cryptoGlobalArticles,
 				});
                 setLoading(false);
 			});
             
             // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-        
+	}, []);
+   
 	if (loading) return <Loading />;
 
 	return (
-		<StateContext.Provider value={{ articles }}>
+		<ArticlesContext.Provider value={{ articles }}>
 			{children}
-		</StateContext.Provider>
+		</ArticlesContext.Provider>
 	);
 };

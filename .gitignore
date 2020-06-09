@@ -21,3 +21,6 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+python/web_scrap_test.py
+.vscode/settings.json
+.firebase/hosting.YnVpbGQ.cache

@@ -1,53 +1,87 @@
 import React, { useContext } from 'react';
-import { StateContext } from '../../context/StateContext';
+import { ArticlesContext } from '../../context/ArticlesContext';
 import Home from './Home';
-import CryptoPotatoLogo from '../../assets/articles_icons/crypto-potato-logo.png';
-import CoinDeskLogo from '../../assets/articles_icons/coindesk-logo.png';
-import NewsBTCLogo from '../../assets/articles_icons/newsbtc-logo.png';
-import BitcoinDotComLogo from '../../assets/articles_icons/bitcoindotcom-logo.png';
-import EosioLogo from '../../assets/articles_icons/eosio-logo.png';
-import EtheruemWorldNewsLogo from '../../assets/articles_icons/Ethereum-World-News.png';
 
+const IMG = (imgName) => {
+	return require(`../../assets/articles_icons/${imgName}`);
+ };
+ 
 const HomeContainer = () => {
-	const { articles } = useContext(StateContext);
+	const { articles } = useContext(ArticlesContext);
 
 	const articlesData = [
 		{
-			name: 'CryptoPotato',
-			articles: articles.coindeskArticles,
-			image: CryptoPotatoLogo,
-			headerClass: 'cryptopotato'
+			name: 'Decrypt',
+			articles: articles.decryptArticles,
+			image: IMG('decrypt-logo.png'),
+			headerClass: 'decrypt'
 		},
 		{
 			name: 'CoinDesk',
 			articles: articles.coindeskArticles,
-			image: CoinDeskLogo,
+			image: IMG('coindesk-logo.png'),
 			headerClass: 'coindesk'
 		},
 		{
 			name: 'NewsBTC',
 			articles: articles.newsBTCArticles,
-			image: NewsBTCLogo,
+			image: IMG('newsbtc-logo.png'),
 			headerClass: 'newsbtc'
+		},
+		{
+			name: 'Bitcoinist',
+			articles: articles.bitcoinistArticles,
+			image: IMG('bitcoinist-logo.png'),
+			headerClass: 'bitcoinist'
+		},
+		{
+			name: 'CryptoPotato',
+			articles: articles.coindeskArticles,
+			image: IMG('crypto-potato-logo.png'),
+			headerClass: 'cryptopotato'
 		},
 		{
 			name: 'Bitcoin.com',
 			articles: articles.bitcoinDotComArticles,
-			image: BitcoinDotComLogo,
+			image: IMG('bitcoindotcom-logo.png'),
 			headerClass: 'bitcoindc'
 		},
 		{
 			name: 'EOSIO',
 			articles: articles.eosioArticles,
-			image: EosioLogo,
+			image: IMG('eosio-logo.png'),
 			headerClass: 'eosio'
 		},
 		{
 			name: 'Etheruem World News',
 			articles: articles.etheruemWorldNewsArticles,
-			image: EtheruemWorldNewsLogo,
+			image: IMG('Ethereum-World-News.png'),
 			headerClass: 'ewn'
 		},
+		{
+			name: 'Crypto Briefing',
+			articles: articles.cryptoBriefingArticles,
+			image: IMG('Crypto-Briefing-Logo.png'),
+			headerClass: 'cryptobriefing'
+		},
+		{
+			name: 'The Daily Hodl',
+			articles: articles.bitcoinistArticles,
+			image: IMG('dailyhodl-logo.png'),
+			headerClass: 'dailyhodl'
+		},
+		{
+			name: 'CryptoGlobe',
+			articles: articles.bitcoinistArticles,
+			image: IMG('crypto-globe-logo.png'),
+			headerClass: 'cryptoglobal'
+		},
+		{
+			name: 'Crypto News',
+			articles: articles.cryptoNewsArticles,
+			image: IMG('cryptonews-logo.png'),
+			headerClass: 'cryptonews'
+		}
 	];
 
 	return (

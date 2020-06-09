@@ -9,7 +9,7 @@ const algoliaClient = algoliasearch(
 	functions.config().algolia.appid,
 	functions.config().algolia.apikey
 );
-const collectionIndex = algoliaClient.initIndex('prod_Articles');
+const index = algoliaClient.initIndex('prod_Articles');
 
 exports.sendCollectionToAlgolia = functions.https.onRequest(
 	async (req, res) => {
@@ -29,7 +29,7 @@ exports.sendCollectionToAlgolia = functions.https.onRequest(
 			algoliaRecords.push(record);
 		});
 
-		collectionIndex
+		index
 			.saveObjects(algoliaRecords)
 			.then(({ objectIDs }) => {
 				console.log(objectIDs);
