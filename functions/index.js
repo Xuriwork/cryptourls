@@ -3,7 +3,7 @@ const admin = require('firebase-admin');
 const algoliasearch = require('algoliasearch');
 
 admin.initializeApp();
-const db = admin.firestore();
+//const db = admin.firestore();
 
 const algoliaClient = algoliasearch(
 	functions.config().algolia.appid,
@@ -11,35 +11,35 @@ const algoliaClient = algoliasearch(
 );
 const index = algoliaClient.initIndex('prod_Articles');
 
-exports.sendCollectionToAlgolia = functions.https.onRequest(
-	async (req, res) => {
-		const algoliaRecords = [];
+// exports.sendCollectionToAlgolia = functions.https.onRequest(
+// 	async (req, res) => {
+// 		const algoliaRecords = [];
 
-		const querySnapshot = await db.collection('scrapped_articles').get();
-		querySnapshot.docs.forEach((doc) => {
-			const document = doc.data();
+// 		const querySnapshot = await db.collection('scrapped_articles').get();
+// 		querySnapshot.docs.forEach((doc) => {
+// 			const document = doc.data();
 
-			const record = {
-				objectID: doc.id,
-				article_title: document.article_title,
-				article_link: document.article_link,
-				publisher: document.publisher,
-			};
+// 			const record = {
+// 				objectID: doc.id,
+// 				article_title: document.article_title,
+// 				article_link: document.article_link,
+// 				publisher: document.publisher,
+// 			};
 
-			algoliaRecords.push(record);
-		});
+// 			algoliaRecords.push(record);
+// 		});
 
-		index
-			.saveObjects(algoliaRecords)
-			.then(({ objectIDs }) => {
-				console.log(objectIDs);
-				return res.status(200).send(objectIDs);
-			})
-			.catch((error) => {
-				console.log(error);
-			});
-	}
-);
+// 		index
+// 			.saveObjects(algoliaRecords)
+// 			.then(({ objectIDs }) => {
+// 				console.log(objectIDs);
+// 				return res.status(200).send(objectIDs);
+// 			})
+// 			.catch((error) => {
+// 				console.log(error);
+// 			});
+// 	}
+// );
 
 exports.addPostToIndex = functions.firestore
 	.document('scrapped_articles/{articleId}')
@@ -47,10 +47,11 @@ exports.addPostToIndex = functions.firestore
 		const data = snapshot.data();
 		const objectID = context.params.articleId;
 
-		return index.addObject({
+		return index.saveObject({
 			objectID,
 			article_title: data.article_title,
 			article_link: data.article_link,
+			article_date: data.article_date,
 			publisher: data.publisher,
 		});
 	});

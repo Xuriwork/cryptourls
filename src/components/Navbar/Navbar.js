@@ -1,21 +1,21 @@
 import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
-import Search from '../Search';
+import Search from '../Search/Search';
 
 import { ReactComponent as FeedbackIcon } from '../../assets/icons/feedback-fill.svg';
 import { ReactComponent as MailIcon } from '../../assets/icons/mail-fill.svg';
 import { ReactComponent as PreferencesIcon } from '../../assets/icons/settings-fill.svg';
-import CryptoURLsLogo from '../../assets/icons/cryptourls-logo.svg';
+import CryptoURLsLogo from '../../assets/icons/cryptourls-logo-typeface.svg';
 import HamburgerMenuIcon from '../../assets/icons/hamburger-menu.svg';
 import ModalContext from '../../context/ModalContext';
 
-const Header = () => {
+const Navbar = () => {
 	const [menu, setMenu] = useState(false);
 	const desktopMenuRef = useRef(null);
+	const { handleModal } = useContext(ModalContext);
 
 	const toggleMenu = () => setMenu(!menu);
-
 	
 	const closeMenu = () => {
 		setTimeout(() => {
@@ -36,15 +36,13 @@ const Header = () => {
 		document.addEventListener('mousedown', handleDocumentClick, false);
 	}, []);
 
-	const { handleModal } = useContext(ModalContext);
-
 	const handleToggleModal = (type) => {
 		closeMenu();
 		handleModal(type);
 	};
 
 	return (
-		<div className='header-component'>
+		<div className='navbar-component'>
 			<nav>
 				<div className='crypto_urls-logo-container'>
 					<Link to='/'>
@@ -69,4 +67,4 @@ const Header = () => {
 	);
 };
 
-export default Header;
+export default Navbar;

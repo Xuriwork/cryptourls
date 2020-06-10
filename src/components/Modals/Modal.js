@@ -4,14 +4,11 @@ import cogoToast from 'cogo-toast';
 
 export const Modal = () => {
 	const { handleModal, modal, modalType } = React.useContext(ModalContext);
-
-	if (modal) document.body.style.overflow = 'hidden';
-	else document.body.style.overflow = 'auto';
     
     window.onclick = (e) => {
         const modalOverlay = document.getElementById('modal-overlay');
         if (e.target === modalOverlay) handleModal();
-    }
+    };
 
 	let info = {};
 

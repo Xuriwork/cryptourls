@@ -29,30 +29,6 @@ const HomeContainer = () => {
 			headerClass: 'newsbtc'
 		},
 		{
-			name: 'Bitcoinist',
-			articles: articles.bitcoinistArticles,
-			image: IMG('bitcoinist-logo.png'),
-			headerClass: 'bitcoinist'
-		},
-		{
-			name: 'CryptoPotato',
-			articles: articles.coindeskArticles,
-			image: IMG('crypto-potato-logo.png'),
-			headerClass: 'cryptopotato'
-		},
-		{
-			name: 'Bitcoin.com',
-			articles: articles.bitcoinDotComArticles,
-			image: IMG('bitcoindotcom-logo.png'),
-			headerClass: 'bitcoindc'
-		},
-		{
-			name: 'EOSIO',
-			articles: articles.eosioArticles,
-			image: IMG('eosio-logo.png'),
-			headerClass: 'eosio'
-		},
-		{
 			name: 'Etheruem World News',
 			articles: articles.etheruemWorldNewsArticles,
 			image: IMG('Ethereum-World-News.png'),
@@ -65,6 +41,48 @@ const HomeContainer = () => {
 			headerClass: 'cryptobriefing'
 		},
 		{
+			name: 'Bitcoinist',
+			articles: articles.bitcoinistArticles,
+			image: IMG('bitcoinist-logo.svg'),
+			headerClass: 'bitcoinist'
+		},
+		{
+			name: 'EOSIO',
+			articles: articles.eosioArticles,
+			image: IMG('eosio-logo.svg'),
+			headerClass: 'eosio'
+		},
+		{
+			name: 'SwissBorg',
+			articles: articles.swissborgArticles,
+			image: IMG('swissborg-logo.svg'),
+			headerClass: 'swissborg'
+		},
+		{
+			name: 'Bitcoin.com',
+			articles: articles.bitcoinDotComArticles,
+			image: IMG('bitcoindotcom-logo.png'),
+			headerClass: 'bitcoindc'
+		},
+		{
+			name: 'CryptoPotato',
+			articles: articles.coindeskArticles,
+			image: IMG('crypto-potato-logo.png'),
+			headerClass: 'cryptopotato'
+		},
+		{
+			name: 'Coinspeaker',
+			articles: articles.coinspeakerArticles,
+			image: IMG('coinspeaker-logo.svg'),
+			headerClass: 'coinspeaker'
+		},
+		{
+			name: 'AMBCrypto',
+			articles: articles.ambCryptoArticles,
+			image: IMG('ambcrypto-logo.png'),
+			headerClass: 'ambcrypto'
+		},
+		{
 			name: 'The Daily Hodl',
 			articles: articles.bitcoinistArticles,
 			image: IMG('dailyhodl-logo.png'),
@@ -74,7 +92,7 @@ const HomeContainer = () => {
 			name: 'CryptoGlobe',
 			articles: articles.bitcoinistArticles,
 			image: IMG('crypto-globe-logo.png'),
-			headerClass: 'cryptoglobal'
+			headerClass: 'cryptoglobe'
 		},
 		{
 			name: 'Crypto News',

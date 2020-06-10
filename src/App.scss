@@ -96,16 +96,17 @@
 	padding: 0;
 	list-style-type: none;
 	text-decoration: none;
-	font-family: 'Titillium Web', sans-serif !important;
+	font-family: 'Titillium Web', sans-serif;
 }
 
 ::-webkit-scrollbar {
 	width: 8px;
-	background-color: #f5f5f5;
+	background-color: #dadada;
 }
 
 ::-webkit-scrollbar-thumb {
 	background-color: #393957;
+	border-radius: 5px;
 }
 
 %flex-center {
@@ -131,7 +132,8 @@ button {
 	border: none;
 }
 
-input, textarea {
+input,
+textarea {
 	background: #f7f8f9;
 	border: none;
 }
@@ -192,69 +194,126 @@ input, textarea {
 		background-color: #ffffff;
 		border-radius: 5px;
 		user-select: none;
+	}
 
-		.modal-content {
-
-			h3 {
-				font-weight: 600;
-			}
-			
-			p {
-				font-size: 0.9em;
-				margin-bottom: 10px;
-			}
-
-			form {
-				@extend %flex-center-column;
-
-				input:nth-of-type(2) {
-					margin: 10px 0;
-				}
-				
-				textarea {
-					height: 100px;
-					resize: none;
-				}
-				
-				input, textarea {
-					width: 100%;
-					min-width: 100%;
-					padding: 4px 5px;
-					border-radius: 2px;
-					background-color: #ececec;
-					box-sizing: border-box;
-				}
-			}
+	.modal-content {
+		h3 {
+			font-weight: 600;
 		}
 
-		.modal-bottom {
-			padding-top: 15px;
-			padding-bottom: 5px;
-			display: flex;
-			justify-content: flex-end;
+		p {
+			font-size: 0.9em;
+			margin-bottom: 10px;
+		}
 
-			button {
-				text-transform: uppercase;
-				cursor: pointer;
+		form {
+			@extend %flex-center-column;
+
+			input:nth-of-type(2) {
+				margin: 10px 0;
 			}
 
-			.cancel-button {
-				background-color: transparent;
+			textarea {
+				height: 100px;
+				resize: none;
 			}
 
-			button:nth-of-type(2) {
-				margin-left: 10px;
-				background-color: #36DBD3;
-				color: #fff;
-				padding: 4px 15px;
+			input,
+			textarea {
+				width: 100%;
+				min-width: 100%;
+				padding: 4px 5px;
+				border-radius: 2px;
+				background-color: #ececec;
 				box-sizing: border-box;
-				border-radius: 5px;
 			}
+		}
+	}
+
+	.modal-bottom {
+		padding-top: 15px;
+		padding-bottom: 5px;
+		display: flex;
+		justify-content: flex-end;
+
+		button {
+			text-transform: uppercase;
+			cursor: pointer;
+		}
+
+		.cancel-button {
+			background-color: transparent;
+		}
+
+		button:nth-of-type(2) {
+			margin-left: 10px;
+			background-color: #36dbd3;
+			color: #fff;
+			padding: 4px 15px;
+			box-sizing: border-box;
+			border-radius: 5px;
 		}
 	}
 }
 
-.header-component {
+.modal-overlay {
+	.search_modal {
+		width: 500px;
+		height: 600px;
+		padding: 20px;
+		box-sizing: border-box;
+
+		h3 {
+			text-align: center;
+			margin-bottom: 20px;
+			font-weight: 600;
+
+			span {
+				color: #22d1ee;
+			}
+		}
+
+		.modal-content {
+			overflow-y: scroll;
+			user-select: text;
+			height: 100%;
+
+			.hit-item-container {
+				margin-bottom: 10px;
+				min-height: 100%;
+				height: 100%;
+				
+				a {
+					font-size: 0.9em;
+
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+			}
+
+			.ais-Hits {
+				padding: 0 25px;
+				box-sizing: border-box;
+
+				mark {
+					background-color: #85f5ef;
+				}
+			}
+		}
+		
+		.modal-bottom {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			padding-bottom: 0;
+			padding-top: 20px;
+		}
+	}
+}
+
+.navbar-component {
 	background-color: #393957;
 
 	nav {
@@ -295,7 +354,9 @@ input, textarea {
 				right: 0;
 				z-index: 10;
 				border-radius: 5px;
-				box-shadow: 0 8px 10px 1px rgba(56, 56, 56, 0.12), 0 3px 14px 2px rgba(56, 56, 56, 0.12), 0 5px 5px -3px rgba(56, 56, 56, 0.12);
+				box-shadow: 0 8px 10px 1px rgba(56, 56, 56, 0.12),
+					0 3px 14px 2px rgba(56, 56, 56, 0.12),
+					0 5px 5px -3px rgba(56, 56, 56, 0.12);
 				padding: 15px;
 				animation: fadein 0.3s ease-out;
 
@@ -346,6 +407,10 @@ input, textarea {
 		}
 	}
 
+	.ais-SearchBox-form {
+		display: none !important;
+	}	
+
 	.search-component {
 		width: 1400px;
 		max-width: 95%;
@@ -353,6 +418,7 @@ input, textarea {
 		padding-top: 5px;
 		padding-bottom: 15px;
 		position: relative;
+		overflow: hidden;
 
 		.search-input-container {
 			@extend %flex-center;
@@ -383,22 +449,6 @@ input, textarea {
 				}
 			}
 		}
-	}
-
-	.ais-Hits {
-		position: absolute;
-		background-color: #fcfcfc;
-		width: 1400px;
-		max-width: 100%;
-		max-height: 250px;
-		z-index: 2;
-		top: 38px;
-		box-sizing: border-box;
-	}
-
-	mark {
-		background-color: #36DBD3;
-		color: #fff;
 	}
 }
 
@@ -443,7 +493,8 @@ input, textarea {
 			font-weight: 600;
 			color: #fff;
 			background: linear-gradient(to bottom, #f1f1f1, #ededed);
-    		box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05), 0 2px 2px -1px rgba(0, 0, 0, 0.2);
+			box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.05),
+				0 2px 2px -1px rgba(0, 0, 0, 0.2);
 
 			img {
 				margin-right: 10px;
@@ -461,34 +512,32 @@ input, textarea {
 		}
 
 		.publisher-header-newsbtc {
-			background: linear-gradient(to bottom, rgb(61, 84, 102), #2e4251);
+			background: linear-gradient(to bottom, #3d5466, #2e4251);
 		}
 
-		.publisher-header-eosio, .publisher-header-dailyhodl {
-			background: linear-gradient(to bottom, #ffffff, #f5f5f58f);
-			color: #393957;
+		.publisher-header-eosio {
+			background: linear-gradient(to bottom, #57579c, #283364);
 
 			img {
-				width: 35px;
+				width: 20px;
 			}
 		}
 
-		.publisher-header-cryptoglobal {
-			background: linear-gradient(to bottom, #ffffff, #f5f5f58f);
-			color: #393957;
-		}
-
-		.publisher-header-bitcoindc {
+		.publisher-header-bitcoindc, .publisher-header-cryptoglobe, .publisher-header-dailyhodl {
 			background: linear-gradient(to bottom, #ffffff, #f8f8f88f);
 			color: #393957;
 		}
 
 		.publisher-header-bitcoinist {
-			background: linear-gradient(to bottom, #4dc7f3, #47bde7);
+			background: linear-gradient(to bottom, #009AFE, rgb(3, 142, 235));
 		}
 
 		.publisher-header-ewn {
 			background: linear-gradient(to bottom, #1e2425, #101314);
+		}
+
+		.publisher-header-swissborg {
+			background: #01c38d;
 		}
 
 		.publisher-header-decrypt {
@@ -496,13 +545,30 @@ input, textarea {
 			color: #000;
 		}
 
+		.publisher-header-coinspeaker {
+			background: linear-gradient(to bottom, #f7102b, #b3071b);
+
+			img {
+				border-radius: 4px;
+			}
+		}
+
+		.publisher-header-ambcrypto {
+			background: linear-gradient(to bottom, #fff, #f5f5f5);
+			color: #000;
+
+			img {
+				width: 45px;
+			}
+		}
+
 		.publisher-header-cryptonews {
 			background: linear-gradient(to bottom, #796ed8, #bb3693);
 			color: white;
 		}
-		
+
 		.publisher-header-cryptobriefing {
-			background: linear-gradient(to bottom, #faea56, #e9c58f);
+			background: linear-gradient(to bottom, #fdcb41, #f1e25a);
 		}
 
 		.site-container {
@@ -561,7 +627,7 @@ input, textarea {
 }
 
 @media (max-width: 950px) {
-	.header-component {
+	.navbar-component {
 		nav {
 			padding: 8px 18px;
 		}
@@ -570,7 +636,6 @@ input, textarea {
 
 @media (max-width: 500px) {
 	.home-component {
-
 		.sites-container {
 			display: flex;
 			flex-direction: column;

@@ -56,6 +56,15 @@ export const StateProvider = ({ children }) => {
 				const _cryptoGlobalArticles = _articles.filter((article) => {
 					return article.publisher === 'CryptoGlobe';
 				});
+				const _coinspeakerArticles = _articles.filter((article) => {
+					return article.publisher === 'Coinspeaker';
+				});
+				const _ambCryptoArticles = _articles.filter((article) => {
+					return article.publisher === 'AMBCrypto';
+				});
+				const _swissborgArticles = _articles.filter((article) => {
+					return article.publisher === 'SwissBorg';
+				});
 				setArticles({
 					coindeskArticles: _coindeskArticles,
 					cryptopotatoArticles: _cryptopotatoArticles,
@@ -69,6 +78,9 @@ export const StateProvider = ({ children }) => {
 					bitcoinistArticles: _bitcoinistArticles,
 					theDailyHodlArticles: _theDailyHodlArticles,
 					cryptoGlobalArticles: _cryptoGlobalArticles,
+					swissborgArticles: _swissborgArticles,
+					coinspeakerArticles: _coinspeakerArticles,
+					ambCryptoArticles: _ambCryptoArticles
 				});
                 setLoading(false);
 			});
