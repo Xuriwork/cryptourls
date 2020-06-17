@@ -6,6 +6,7 @@ import {
 	Hits,
 	SearchBox,
 	connectHighlight,
+	connectStateResults,
 } from 'react-instantsearch-dom';
 
 const searchClient = algoliasearch(
@@ -35,25 +36,43 @@ const Highlight = ({ highlight, attribute, hit }) => {
 
 const CustomHighlight = connectHighlight(Highlight);
 
-const Hit = ({ hit }) => (
-	<div className='hit-item-container'>
-		<h4>
-			<CustomHighlight attribute='article_title' hit={hit} />
-		</h4>
-		<a href={hit.article_link} target='_blank' rel='noopener noreferrer'>
-			{hit.article_link}
-		</a>
-	</div>
+const Hit = ({ hit }) => {
+	return (
+		<div className='hit-item-container'>
+			<h4>
+				<CustomHighlight attribute='article_title' hit={hit} />
+			</h4>
+			<a href={hit.article_link} target='_blank' rel='noopener noreferrer'>
+				{hit.article_link}
+			</a>
+		</div>
+	);
+};
+
+const Results = connectStateResults(
+	({ searchResults, isSearchStalled, children }) => {
+		return isSearchStalled ? (
+			<div class='loader'>
+				<div></div>
+				<div></div>
+				<div></div>
+				<div></div>
+			</div>
+		) : searchResults && searchResults.nbHits !== 0 ? (
+			children
+		) : (
+			<div className='no-results-div'>No results have been found.</div>
+		);
+	}
 );
 
 const SearchModal = ({ searchInfo, setModal }) => {
-
 	window.onclick = (e) => {
 		const modalOverlay = document.getElementById('modal-overlay');
 		if (e.target === modalOverlay) {
 			setModal(null);
 			document.body.style.overflow = 'auto';
-		};
+		}
 	};
 
 	if (searchInfo) document.body.style.overflow = 'hidden';
@@ -64,8 +83,13 @@ const SearchModal = ({ searchInfo, setModal }) => {
 			searchClient={searchClient}
 			currentRefinement={searchInfo.termSearched}
 		>
-			<Hits hitComponent={Hit} />
-			<SearchBox defaultRefinement={searchInfo.termSearched} />
+			<Results>
+				<Hits hitComponent={Hit} />
+			</Results>
+			<SearchBox
+				defaultRefinement={searchInfo.termSearched}
+				showLoadingIndicator
+			/>
 		</InstantSearch>
 	);
 
@@ -73,6 +97,9 @@ const SearchModal = ({ searchInfo, setModal }) => {
 		<>
 			<div className='modal-overlay' id='modal-overlay'>
 				<div className='modal search_modal'>
+					<span className='modal-close-button' onClick={() => setModal(null)}>
+						&times;
+					</span>
 					<h3>
 						Searched Term: <span>{searchInfo.termSearched}</span>
 					</h3>
@@ -80,7 +107,7 @@ const SearchModal = ({ searchInfo, setModal }) => {
 						<SearchResults />
 					</div>
 					<div className='modal-bottom'>
-						<img src={AlgoliaIcon} alt='Search By Algolia' />
+						<img src={AlgoliaIcon} alt='Search By Algolia' draggable='false' />
 					</div>
 				</div>
 			</div>

@@ -1,8 +1,8 @@
-import React from "react";
+import { useState } from "react";
 
 export const useModal = () => {
-  const [modal, setModal] = React.useState(false);
-  const [modalType, setModalType] = React.useState(null);
+  const [modal, setModal] = useState(false);
+  const [modalType, setModalType] = useState(null);
 
   const handleModal = (type = false) => {
     setModal(!modal);
