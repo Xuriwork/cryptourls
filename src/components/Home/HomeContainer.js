@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { ArticlesContext } from '../../context/ArticlesContext';
+import { StateContext } from '../../context/StateContext';
 import Home from './Home';
 
 const IMG = (imgName) => {
@@ -7,7 +7,7 @@ const IMG = (imgName) => {
  };
  
 const HomeContainer = () => {
-	const { articles } = useContext(ArticlesContext);
+	const { articles } = useContext(StateContext);
 
 	const articlesData = [
 		{

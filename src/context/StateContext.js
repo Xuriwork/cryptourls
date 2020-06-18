@@ -2,11 +2,19 @@ import React, { useState, useEffect } from 'react';
 import firebase from '../utils/Firebase';
 import Loading from '../components/Loading';
 
-export const ArticlesContext = React.createContext();
+export const StateContext = React.createContext();
 
 export const StateProvider = ({ children }) => {
 	const [loading, setLoading] = useState(true);
 	const [articles, setArticles] = useState({});
+	const [links, setLinks] = useState(() => {
+		const parsedLinksObject = JSON.parse(sessionStorage.getItem('links'))
+		return parsedLinksObject || [];
+	});
+
+	useEffect(() => {
+		sessionStorage.setItem('links', JSON.stringify(links))
+	}, [links]);
 
 	useEffect(() => {
 		firebase
@@ -116,8 +124,8 @@ export const StateProvider = ({ children }) => {
 	if (loading) return <Loading />;
 
 	return (
-		<ArticlesContext.Provider value={{ articles }}>
+		<StateContext.Provider value={{ articles, links, setLinks }}>
 			{children}
-		</ArticlesContext.Provider>
+		</StateContext.Provider>
 	);
 };

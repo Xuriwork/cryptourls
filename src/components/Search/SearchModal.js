@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import AlgoliaIcon from '../../assets/icons/search-by-algolia-light-background.svg';
 import algoliasearch from 'algoliasearch/lite';
 import {
@@ -8,6 +8,7 @@ import {
 	connectHighlight,
 	connectStateResults,
 } from 'react-instantsearch-dom';
+import { StateContext } from '../../context/StateContext';
 
 const searchClient = algoliasearch(
 	'3C9U5NS6QB',
@@ -37,6 +38,12 @@ const Highlight = ({ highlight, attribute, hit }) => {
 const CustomHighlight = connectHighlight(Highlight);
 
 const Hit = ({ hit }) => {
+	const { links, setLinks } = useContext(StateContext);
+
+	const handleAddToLinks = () => {
+		setLinks([...links, hit.article_link]);
+	};
+
 	return (
 		<div className='hit-item-container'>
 			<h4>
@@ -45,6 +52,8 @@ const Hit = ({ hit }) => {
 			<a href={hit.article_link} target='_blank' rel='noopener noreferrer'>
 				{hit.article_link}
 			</a>
+			<br />
+			<button onClick={handleAddToLinks}>Add to LINKS</button>
 		</div>
 	);
 };
@@ -52,7 +61,7 @@ const Hit = ({ hit }) => {
 const Results = connectStateResults(
 	({ searchResults, isSearchStalled, children }) => {
 		return isSearchStalled ? (
-			<div class='loader'>
+			<div className='loader'>
 				<div></div>
 				<div></div>
 				<div></div>
