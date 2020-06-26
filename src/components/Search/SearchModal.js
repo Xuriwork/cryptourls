@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import AlgoliaIcon from '../../assets/icons/search-by-algolia-light-background.svg';
+
 import algoliasearch from 'algoliasearch/lite';
 import {
 	InstantSearch,
@@ -8,7 +8,11 @@ import {
 	connectHighlight,
 	connectStateResults,
 } from 'react-instantsearch-dom';
+import cogoToast from 'cogo-toast';
+
 import { StateContext } from '../../context/StateContext';
+
+import AlgoliaIcon from '../../assets/icons/search-by-algolia-light-background.svg';
 
 const searchClient = algoliasearch(
 	'3C9U5NS6QB',
@@ -41,6 +45,11 @@ const Hit = ({ hit }) => {
 	const { links, setLinks } = useContext(StateContext);
 
 	const handleAddToLinks = () => {
+		if (links.includes(hit.article_link)) {
+			return cogoToast.info('Link is already added', {
+				hideAfter: 5,
+			});
+		};
 		setLinks([...links, hit.article_link]);
 	};
 

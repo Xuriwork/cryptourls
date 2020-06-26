@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect, useContext } from 'react';
 import { Link } from 'react-router-dom';
 
 import Search from '../Search/Search';
+import ModalContext from '../../context/ModalContext';
 
 import { ReactComponent as FeedbackIcon } from '../../assets/icons/feedback-fill.svg';
 import { ReactComponent as LinkIcon } from '../../assets/icons/links-fill.svg';
@@ -9,14 +10,11 @@ import { ReactComponent as MailIcon } from '../../assets/icons/mail-fill.svg';
 import { ReactComponent as PreferencesIcon } from '../../assets/icons/settings-fill.svg';
 import CryptoURLsLogo from '../../assets/icons/cryptourls-logo-typeface.svg';
 import HamburgerMenuIcon from '../../assets/icons/hamburger-menu.svg';
-import ModalContext from '../../context/ModalContext';
-import { StateContext } from '../../context/StateContext';
 
 const Navbar = () => {
 	const [menu, setMenu] = useState(false);
 	const desktopMenuRef = useRef(null);
 	const { handleModal } = useContext(ModalContext);
-	const { links } = useContext(StateContext);
 
 	const toggleMenu = () => setMenu(!menu);
 	
@@ -44,12 +42,6 @@ const Navbar = () => {
 		handleModal(type);
 	};
 
-	const handleOpenLinks = () => {
-		links.forEach((link) => {
-			window.open(link, '_blank');
-		})
-	};
-
 	return (
 		<div className='navbar-component'>
 			<nav>
@@ -63,7 +55,7 @@ const Navbar = () => {
 					{
 						menu && (
 							<div id='desktop-menu' className='desktop-menu'>
-								<div onClick={handleOpenLinks}><LinkIcon />Open Links</div>
+								<div onClick={() => handleToggleModal('saved-links')}><LinkIcon />Open Links</div>
 								<div onClick={() => handleToggleModal('preferences')}><PreferencesIcon /> Preferences</div>
 								<div onClick={() => handleToggleModal('subscribe')}><MailIcon />Subscribe</div>
 								<div onClick={() => handleToggleModal('send-feedback')}><FeedbackIcon /> Send Feedback</div>

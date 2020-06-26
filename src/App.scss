@@ -230,6 +230,32 @@ textarea {
 				box-sizing: border-box;
 			}
 		}
+
+		.saved-links-list {
+			overflow-y: scroll;
+			max-height: 400px;
+			padding: 10px;
+			li {
+				margin-bottom: 6px;
+
+				span {
+					margin-right: 8px;
+					background-color: #5ce2fa;
+					color: #fff;
+					padding: 4px 8px;
+					border-radius: 50%;
+					font-size: 0.8em;
+				}
+
+				a {
+					font-size: 0.9em;
+
+					&:hover {
+						text-decoration: underline;
+					}
+				}
+			}
+		}
 	}
 
 	.modal-bottom {
@@ -308,6 +334,11 @@ textarea {
 		padding: 20px 10px;
 		box-sizing: border-box;
 		position: relative;
+
+		button {
+			user-select: none;
+			-moz-user-select: none;
+		}
 
 		.modal-close-button {
 			position: absolute;
@@ -611,6 +642,10 @@ textarea {
 
 		.publisher-header-swissborg {
 			background: #01c38d;
+		}
+
+		.publisher-header-medium {
+			background: #181818;
 		}
 
 		.publisher-header-decrypt {

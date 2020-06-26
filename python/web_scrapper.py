@@ -134,11 +134,11 @@ def bitcoin_news():
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
-            u'publisher': u'Bitcoin News',
-            u'document_title': document_title,
-            u'article_title': article_title,
-            u'article_date': article_date,
-            u'article_link': article_link
+            'publisher': 'Bitcoin News',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
         })
 
 def eosio_news():
@@ -163,11 +163,11 @@ def eosio_news():
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
-            u'publisher': u'EOSIO',
-            u'document_title': document_title,
-            u'article_title': article_title,
-            u'article_date': article_date,
-            u'article_link': article_link
+            'publisher': 'EOSIO',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
         })
 
 def ethereumworldnews():
@@ -191,11 +191,11 @@ def ethereumworldnews():
 
             ref = scrapped_articles_collection_ref.document(document_title)
             batch.set(ref, {
-                u'publisher': u'Ethereum World News',
-                u'document_title': document_title,
-                u'article_title': article_title,
-                u'article_date': article_date,
-                u'article_link': article_link
+                'publisher': 'Ethereum World News',
+                'document_title': document_title,
+                'article_title': article_title,
+                'article_date': article_date,
+                'article_link': article_link
             })
 
 def crypto_briefing():
@@ -220,11 +220,11 @@ def crypto_briefing():
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
-            u'publisher': u'Crypto Briefing',
-            u'document_title': document_title,
-            u'article_title': article_title,
-            u'article_date': article_date,
-            u'article_link': article_link
+            'publisher': 'Crypto Briefing',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
         })
 
 
@@ -252,11 +252,11 @@ def crypto_news():
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
-            u'publisher': u'Crypto News',
-            u'document_title': document_title,
-            u'article_title': article_title,
-            u'article_date': article_date,
-            u'article_link': article_link
+            'publisher': 'Crypto News',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
         })
 
 def decrypt():
@@ -283,11 +283,11 @@ def decrypt():
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
-            u'publisher': u'Decrypt',
-            u'document_title': document_title,
-            u'article_title': article_title,
-            u'article_date': article_date,
-            u'article_link': article_link
+            'publisher': 'Decrypt',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
         })
 
 def cryptoglobe():
@@ -314,11 +314,11 @@ def cryptoglobe():
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
-            u'publisher': u'CryptoGlobe',
-            u'document_title': document_title,
-            u'article_title': article_title,
-            u'article_date': article_date,
-            u'article_link': article_link
+            'publisher': 'CryptoGlobe',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
         })
 
 def thedailyhodl():
@@ -345,11 +345,11 @@ def thedailyhodl():
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
-            u'publisher': u'The Daily Hodl',
-            u'document_title': document_title,
-            u'article_title': article_title,
-            u'article_date': article_date,
-            u'article_link': article_link
+            'publisher': 'The Daily Hodl',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
         })
 
 def bitcoinist():
@@ -376,11 +376,11 @@ def bitcoinist():
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
-            u'publisher': u'Bitcoinist',
-            u'document_title': document_title,
-            u'article_title': article_title,
-            u'article_date': article_date,
-            u'article_link': article_link
+            'publisher': 'Bitcoinist',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
         })
 
 def ambcrypto():
@@ -407,11 +407,11 @@ def ambcrypto():
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
-            u'publisher': u'AMBCrypto',
-            u'document_title': document_title,
-            u'article_title': article_title,
-            u'article_date': article_date,
-            u'article_link': article_link
+            'publisher': 'AMBCrypto',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
         })
 
 def coinspeaker():
@@ -437,11 +437,11 @@ def coinspeaker():
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
-            u'publisher': u'Coinspeaker',
-            u'document_title': document_title,
-            u'article_title': article_title,
-            u'article_date': article_date,
-            u'article_link': article_link
+            'publisher': 'Coinspeaker',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
         })
 
 def swissborg():
@@ -496,6 +496,68 @@ def swissborg():
         })
     get_featured_post()
 
+def medium():
+    URL = 'https://medium.com/feed/topic/cryptocurrency'
+    page = requests.get(URL)
+
+    soup = BeautifulSoup(page.content, features='xml')
+    results = soup.find_all('item')
+
+    for result in results:
+        title_element = result.find('title')
+        pubDate_element = result.find('pubDate')
+        link_element = result.find('link')
+
+        if None in (title_element, pubDate_element, link_element):
+            continue
+
+        article_title = title_element.text.strip()
+        date = pubDate_element.text.strip()
+        article_date = str(dateparser.parse(date))[0:10]
+        stripped_link = link_element.text.strip()
+        article_link = stripped_link.split('?source=rss', 1)[0]
+        document_title = slugify(article_title, to_lower=True, max_length=60)
+
+        ref = scrapped_articles_collection_ref.document(document_title)
+        batch.set(ref, {
+            'publisher': 'Medium',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
+        })
+
+def hackernoon():
+    URL = 'https://hackernoon.com/tagged/cryptocurrency/feed'
+    page = requests.get(URL)
+
+    soup = BeautifulSoup(page.content, features='xml')
+    results = soup.find_all('item')
+
+    for result in results:
+        title_element = result.find('title')
+        pubDate_element = result.find('pubDate')
+        link_element = result.find('link')
+
+        if None in (title_element, pubDate_element, link_element):
+            continue
+
+        article_title = title_element.text.strip()
+        date = pubDate_element.text.strip()
+        article_date = str(dateparser.parse(date))[0:10]
+        stripped_link = link_element.text.strip()
+        article_link = stripped_link.split('?source=rss', 1)[0]
+        document_title = slugify(article_title, to_lower=True, max_length=60)
+
+        ref = scrapped_articles_collection_ref.document(document_title)
+        batch.set(ref, {
+            'publisher': 'Hackernoon',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
+        })
+
 def web_scrapper(event, context):
     coindesk()
     crypto_potato()
@@ -511,5 +573,6 @@ def web_scrapper(event, context):
     ambcrypto()
     coinspeaker()
     swissborg()
+    medium()
 
     batch.commit()

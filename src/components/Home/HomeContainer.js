@@ -35,6 +35,12 @@ const HomeContainer = () => {
 			headerClass: 'ewn'
 		},
 		{
+			name: 'Medium',
+			articles: articles.mediumArticles,
+			image: IMG('medium-logo.svg'),
+			headerClass: 'medium'
+		},
+		{
 			name: 'Crypto Briefing',
 			articles: articles.cryptoBriefingArticles,
 			image: IMG('Crypto-Briefing-Logo.png'),

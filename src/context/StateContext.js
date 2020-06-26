@@ -98,6 +98,9 @@ export const StateProvider = ({ children }) => {
 			const _swissborgArticles = _articles.filter((article) => {
 				return article.publisher === 'SwissBorg';
 			});
+			const _mediumArticles = _articles.filter((article) => {
+				return article.publisher === 'Medium';
+			});
 			setArticles({
 				coindeskArticles: _coindeskArticles,
 				cryptopotatoArticles: _cryptopotatoArticles,
@@ -113,7 +116,8 @@ export const StateProvider = ({ children }) => {
 				cryptoGlobalArticles: _cryptoGlobalArticles,
 				swissborgArticles: _swissborgArticles,
 				coinspeakerArticles: _coinspeakerArticles,
-				ambCryptoArticles: _ambCryptoArticles
+				ambCryptoArticles: _ambCryptoArticles,
+				mediumArticles: _mediumArticles
 			});
 			setLoading(false);
 		});

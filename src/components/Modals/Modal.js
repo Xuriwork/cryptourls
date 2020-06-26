@@ -1,14 +1,16 @@
-import React from 'react';
-import { ModalContext } from '../../context/ModalContext';
+import React, { useContext } from 'react';
+
 import cogoToast from 'cogo-toast';
 
+import { ModalContext } from '../../context/ModalContext';
+
 export const Modal = () => {
-	const { handleModal, modal, modalType } = React.useContext(ModalContext);
-    
-    window.onclick = (e) => {
-        const modalOverlay = document.getElementById('modal-overlay');
-        if (e.target === modalOverlay) handleModal();
-    };
+	const { handleModal, modal, modalType, links } = useContext(ModalContext);
+
+	window.onclick = (e) => {
+		const modalOverlay = document.getElementById('modal-overlay');
+		if (e.target === modalOverlay) handleModal();
+	};
 
 	let info = {};
 
@@ -16,28 +18,34 @@ export const Modal = () => {
 		info = {
 			heading: 'Subscribe to updates',
 			paragraph:
-                'Get notified when we add new features. Gain exclusive access to new projects. Opt out anytime.',
-            button: 'Submit'
+				'Get notified when we add new features. Gain exclusive access to new projects. Opt out anytime.',
+			button: 'Submit',
 		};
 	} else if (modalType === 'send-feedback') {
 		info = {
 			heading: 'Leave feedback',
 			paragraph:
-                'Have a suggestion or want us to add another news source? Send us a message using the form below',
-            button: 'Subscribe'
+				'Have a suggestion or want us to add another news source? Send us a message using the form below',
+			button: 'Subscribe',
 		};
 	} else if (modalType === 'preferences') {
-        info = {
-            heading: 'Preferences',
-            paragraph: 'Personal preferences is an upcoming feature that will let you fine tune your Devurls experience. You\'ll be able to:',
-        }
-    }
+		info = {
+			heading: 'Preferences',
+			paragraph:
+				"Personal preferences is an upcoming feature that will let you fine tune your Devurls experience. You'll be able to:",
+		};
+	} else if (modalType === 'saved-links') {
+		info = {
+			heading: 'Saved links',
+			button: 'Open links'
+		};
+	}
 
 	const handleFeebackSend = () => {
 		cogoToast.info("Hasn't sent, this is disabled sorry 😥", {
 			hideAfter: 5,
 		});
-    };
+	};
 
 	return (
 		<>
@@ -54,24 +62,35 @@ export const Modal = () => {
 									<textarea placeholder='Your thoughts'></textarea>
 								</form>
 							)}
-                            {modalType === 'subscribe' && (
+							{modalType === 'subscribe' && (
 								<form>
 									<input type='email' placeholder='Email' />
 								</form>
 							)}
+							{modalType === 'saved-links' && (
+								<ul className='saved-links-list'>
+									{links.map((link, index) => (
+										<li key={link}>
+											<span>{index + 1}.</span><a href={link} target='_blank' rel='noopener noreferrer'>{link}</a>
+										</li>
+									))}
+								</ul>
+							)}
 						</div>
 						<div className='modal-bottom'>
-                            {
-                                modalType === 'preferences' ? <button onClick={() => handleModal()}>Close</button>
-							    : (
-                                <>
-                                    <button className='cancel-button' onClick={() => handleModal()}>
-                                        Cancel
-                                    </button>
-                                    <button onClick={handleFeebackSend}>{info.button}</button>
-                                </>
-                                )
-                            }
+							{modalType === 'preferences' ? (
+								<button onClick={() => handleModal()}>Close</button>
+							) : (
+								<>
+									<button
+										className='cancel-button'
+										onClick={() => handleModal()}
+									>
+										Cancel
+									</button>
+									<button onClick={handleFeebackSend}>{info.button}</button>
+								</>
+							)}
 						</div>
 					</div>
 				</div>
@@ -81,3 +100,4 @@ export const Modal = () => {
 };
 
 export default Modal;
+
