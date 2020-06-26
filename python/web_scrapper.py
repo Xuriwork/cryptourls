@@ -527,37 +527,6 @@ def medium():
             'article_link': article_link
         })
 
-def hackernoon():
-    URL = 'https://hackernoon.com/tagged/cryptocurrency/feed'
-    page = requests.get(URL)
-
-    soup = BeautifulSoup(page.content, features='xml')
-    results = soup.find_all('item')
-
-    for result in results:
-        title_element = result.find('title')
-        pubDate_element = result.find('pubDate')
-        link_element = result.find('link')
-
-        if None in (title_element, pubDate_element, link_element):
-            continue
-
-        article_title = title_element.text.strip()
-        date = pubDate_element.text.strip()
-        article_date = str(dateparser.parse(date))[0:10]
-        stripped_link = link_element.text.strip()
-        article_link = stripped_link.split('?source=rss', 1)[0]
-        document_title = slugify(article_title, to_lower=True, max_length=60)
-
-        ref = scrapped_articles_collection_ref.document(document_title)
-        batch.set(ref, {
-            'publisher': 'Hackernoon',
-            'document_title': document_title,
-            'article_title': article_title,
-            'article_date': article_date,
-            'article_link': article_link
-        })
-
 def web_scrapper(event, context):
     coindesk()
     crypto_potato()
