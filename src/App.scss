@@ -273,13 +273,23 @@ textarea {
 			background-color: transparent;
 		}
 
-		button:nth-of-type(2) {
+		.main-button {
 			margin-left: 10px;
 			background-color: #36dbd3;
 			color: #fff;
 			padding: 4px 15px;
 			box-sizing: border-box;
 			border-radius: 5px;
+		}
+
+		.clear-links-button {
+			background-color: #fa6e5c;
+			color: #fff;
+			margin-left: 10px;
+			padding: 4px 15px;
+			box-sizing: border-box;
+			border-radius: 5px;
+			font-weight: 600;
 		}
 	}
 }

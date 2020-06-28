@@ -3,8 +3,10 @@ import React, { useContext } from 'react';
 import cogoToast from 'cogo-toast';
 
 import { ModalContext } from '../../context/ModalContext';
+import { StateContext } from '../../context/StateContext';
 
 export const Modal = () => {
+	const { setLinks } = useContext(StateContext);
 	const { handleModal, modal, modalType, links } = useContext(ModalContext);
 
 	window.onclick = (e) => {
@@ -37,12 +39,24 @@ export const Modal = () => {
 	} else if (modalType === 'saved-links') {
 		info = {
 			heading: 'Saved links',
-			button: 'Open links'
+			secondButton: 'Clear links',
+			button: 'Open links',
 		};
 	}
 
-	const handleFeebackSend = () => {
+	const handleMainClick = () => {
+		if (modalType === 'saved-links') {
+			links.forEach((link) => window.open(link));
+		}
 		cogoToast.info("Hasn't sent, this is disabled sorry 😥", {
+			hideAfter: 5,
+		});
+	};
+
+	const handleClearLinks = () => {
+		setLinks([]);
+		handleModal();
+		cogoToast.success('Links cleared', {
 			hideAfter: 5,
 		});
 	};
@@ -71,7 +85,10 @@ export const Modal = () => {
 								<ul className='saved-links-list'>
 									{links.map((link, index) => (
 										<li key={link}>
-											<span>{index + 1}.</span><a href={link} target='_blank' rel='noopener noreferrer'>{link}</a>
+											<span>{index + 1}.</span>
+											<a href={link} target='_blank' rel='noopener noreferrer'>
+												{link}
+											</a>
 										</li>
 									))}
 								</ul>
@@ -88,7 +105,17 @@ export const Modal = () => {
 									>
 										Cancel
 									</button>
-									<button onClick={handleFeebackSend}>{info.button}</button>
+									{info.secondButton && (
+										<button
+											className='clear-links-button'
+											onClick={handleClearLinks}
+										>
+											{info.secondButton}
+										</button>
+									)}
+									<button className='main-button' onClick={handleMainClick}>
+										{info.button}
+									</button>
 								</>
 							)}
 						</div>
@@ -100,4 +127,3 @@ export const Modal = () => {
 };
 
 export default Modal;
-
