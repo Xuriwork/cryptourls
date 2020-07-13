@@ -18,25 +18,24 @@ batch = db.batch()
 
 def coindesk():
 
-    URL = 'https://www.coindesk.com/tag/markets-bitcoin'
+    URL = 'https://www.coindesk.com/feed'
     page = requests.get(URL)
 
-    soup = BeautifulSoup(page.content, 'html.parser')
-    results = soup.find('section', class_ = 'list-body')
-    articles = results.find_all('div', class_ = 'list-item-wrapper')
+    soup = BeautifulSoup(page.content, features='xml')
+    articles = soup.find_all('item')
 
     for article in articles:
-        title_element = article.find('h4', class_ = 'heading')
-        time_element = article.find('time', class_ = 'time')
-        link = article.findAll('a')[1]['href']
+        title_element = article.find('title')
+        link_element = article.find('link')
+        date_element = article.find('pubDate')
 
-        if None in (title_element, time_element, link):
+        if None in (title_element, link_element, date_element):
             continue
         article_title = title_element.text.strip()
-        stripped_date = time_element.text.strip()
+        stripped_date = date_element.text.strip()
         article_date = str(dateparser.parse(stripped_date))[0:10]
-        document_title = slugify(article_title, to_lower = True, max_length = 60)
-        article_link = 'https://www.coindesk.com' + link
+        article_link = link_element.text.strip()
+        document_title = slugify(article_title, to_lower=True, max_length=60)
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
@@ -50,34 +49,30 @@ def coindesk():
 
 def crypto_potato():
 
-    URL = 'https://cryptopotato.com/crypto-news'
+    URL = 'https://cryptopotato.com/feed'
     page = requests.get(URL)
 
-    soup = BeautifulSoup(page.content, 'html.parser')
-    results = soup.find(id = 'list-items')
-    articles = results.find_all('article')
+    soup = BeautifulSoup(page.content, features='xml')
+    articles = soup.find_all('item')
 
     for article in articles:
-        title_element = article.find('h3', class_ = 'media-heading')
-        author_element = article.find('a', {
-            'rel': 'author'
-        })
-        time_element = article.find('time')['datetime']
-        article_link = title_element.find('a')['href']
+        title_element = article.find('title')
+        link_element = article.find('link')
+        date_element = article.find('pubDate')
 
-        if None in (title_element, author_element, time_element, article_link):
+        if None in (title_element, link_element, date_element):
             continue
         article_title = title_element.text.strip()
-        article_author = author_element.text.strip()
-        article_date = time_element
-        document_title = slugify(article_title, to_lower = True, max_length = 60)
+        stripped_date = date_element.text.strip()
+        article_date = str(dateparser.parse(stripped_date))[0:10]
+        article_link = link_element.text.strip()
+        document_title = slugify(article_title, to_lower=True, max_length=60)
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
             'publisher': 'CryptoPotato',
             'document_title': document_title,
             'article_title': article_title,
-            'article_author': article_author,
             'article_date': article_date,
             'article_link': article_link
         })
@@ -85,23 +80,24 @@ def crypto_potato():
 
 def news_btc():
 
-    URL = 'https://www.newsbtc.com'
+    URL = 'https://www.newsbtc.com/feed'
     page = requests.get(URL)
 
-    soup = BeautifulSoup(page.content, 'html.parser')
-    articles = soup.find_all('article')
+    soup = BeautifulSoup(page.content, features='xml')
+    articles = soup.find_all('item')
 
     for article in articles:
-        title_element = article.find('h2', class_ = 'title')
-        time_element = article.find('span', class_ = 'time')
-        article_link = article.find('a')['href']
+        title_element = article.find('title')
+        link_element = article.find('link')
+        date_element = article.find('pubDate')
 
-        if None in (title_element, time_element, article_link):
+        if None in (title_element, link_element, date_element):
             continue
         article_title = title_element.text.strip()
-        stripped_date = time_element.text.strip()
+        stripped_date = date_element.text.strip()
         article_date = str(dateparser.parse(stripped_date))[0:10]
-        document_title = slugify(article_title, to_lower = True, max_length = 60)
+        article_link = link_element.text.strip()
+        document_title = slugify(article_title, to_lower=True, max_length=60)
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
@@ -112,24 +108,25 @@ def news_btc():
             'article_link': article_link
         })
 
+
 def bitcoin_news():
-    URL = 'https://news.bitcoin.com'
+    URL = 'https://news.bitcoin.com/feed'
     page = requests.get(URL)
 
-    soup = BeautifulSoup(page.content, 'html.parser')
-    result = soup.find_all(class_='story story--medium')
+    soup = BeautifulSoup(page.content, features='xml')
+    articles = soup.find_all('item')
 
-    for article in result:
+    for article in articles:
+        title_element = article.find('title')
+        link_element = article.find('link')
+        date_element = article.find('pubDate')
 
-        article_link = article.find('a')['href']
-        title_element = article.find('h6', class_='story__title')
-        time_element = article.find('div', class_='story__footer').find('span')
-
-        if None in (title_element, article_link, time_element):
+        if None in (title_element, link_element, date_element):
             continue
         article_title = title_element.text.strip()
-        stripped_date = time_element.text.strip()
+        stripped_date = date_element.text.strip()
         article_date = str(dateparser.parse(stripped_date))[0:10]
+        article_link = link_element.text.strip()
         document_title = slugify(article_title, to_lower=True, max_length=60)
 
         ref = scrapped_articles_collection_ref.document(document_title)
@@ -140,6 +137,7 @@ def bitcoin_news():
             'article_date': article_date,
             'article_link': article_link
         })
+
 
 def eosio_news():
     URL = 'https://eos.io/news'
@@ -170,52 +168,54 @@ def eosio_news():
             'article_link': article_link
         })
 
+
 def ethereumworldnews():
-    URL = 'https://en.ethereumworldnews.com'
+    URL = 'https://en.ethereumworldnews.com/feed'
     page = requests.get(URL)
 
-    soup = BeautifulSoup(page.content, 'html.parser')
-    articles = soup.find_all('article')
+    soup = BeautifulSoup(page.content, features='xml')
+    articles = soup.find_all('item')
 
     for article in articles:
-        
-        title_element = article.find('h3', class_='title')
-        article_link = title_element.find('a')['href']
-        time_element = article.find('time')
+        title_element = article.find('title')
+        link_element = article.find('link')
+        date_element = article.find('pubDate')
 
-        if (time_element is not None):
-            date = time_element['datetime']
-            article_title = title_element.text.strip()
-            article_date = str(dateparser.parse(date))[0:10]
-            document_title = slugify(article_title, to_lower=True, max_length=60)
+        if None in (title_element, link_element, date_element):
+            continue
+        article_title = title_element.text.strip()
+        stripped_date = date_element.text.strip()
+        article_date = str(dateparser.parse(stripped_date))[0:10]
+        article_link = link_element.text.strip()
+        document_title = slugify(article_title, to_lower=True, max_length=60)
 
-            ref = scrapped_articles_collection_ref.document(document_title)
-            batch.set(ref, {
-                'publisher': 'Ethereum World News',
-                'document_title': document_title,
-                'article_title': article_title,
-                'article_date': article_date,
-                'article_link': article_link
-            })
+        ref = scrapped_articles_collection_ref.document(document_title)
+        batch.set(ref, {
+            'publisher': 'Ethereum World News',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
+        })
 
 def crypto_briefing():
-    URL = 'https://cryptobriefing.com'
+    URL = 'https://cryptobriefing.com/feed'
     page = requests.get(URL)
 
-    soup = BeautifulSoup(page.content, 'html.parser')
-    results = soup.find('div', class_ = 'news-list')
-    articles = results.find_all('div', class_ = 'news-item')
+    soup = BeautifulSoup(page.content, features='xml')
+    articles = soup.find_all('item')
 
     for article in articles:
-        title_element = article.find('h3')
-        article_link = article.find('a', class_='article-url')['href']
-        time_element = article.find('time')['datetime']
+        title_element = article.find('title')
+        link_element = article.find('link')
+        date_element = article.find('pubDate')
 
-        if None in (title_element, article_link, time_element):
+        if None in (title_element, link_element, date_element):
             continue
-
         article_title = title_element.text.strip()
-        article_date = time_element[0:10]
+        stripped_date = date_element.text.strip()
+        article_date = str(dateparser.parse(stripped_date))[0:10]
+        article_link = link_element.text.strip()
         document_title = slugify(article_title, to_lower=True, max_length=60)
 
         ref = scrapped_articles_collection_ref.document(document_title)
@@ -233,7 +233,7 @@ def crypto_news():
     page = requests.get(URL)
 
     soup = BeautifulSoup(page.content, 'html.parser')
-    results = soup.find('div', class_ = 'cn-list cols')
+    results = soup.find('div', class_='cn-list cols')
     articles = results.find_all('div', class_='cn-tile row article')
 
     for article in articles:
@@ -241,7 +241,7 @@ def crypto_news():
         title_element = article.find('h4')
         link = article.find('a')['href']
         time_element = article.find('time')['datetime']
-        
+
         if None in (title_element, link, time_element):
             continue
 
@@ -259,26 +259,25 @@ def crypto_news():
             'article_link': article_link
         })
 
+
 def decrypt():
-    URL = 'https://decrypt.co'
+    URL = 'https://decrypt.co/feed'
     page = requests.get(URL)
 
-    soup = BeautifulSoup(page.content, 'html.parser')
-    results = soup.find('ul', class_ = 'sc-17zo80w-0 jBINTv')
-    articles = results.find_all('li')
-
+    soup = BeautifulSoup(page.content, features='xml')
+    articles = soup.find_all('item')
 
     for article in articles:
-        title_element = article.find('h2')
-        link = article.find('a', class_='sc-18vyx5u-0 hGpPqt')['href']
-        time_element = article.find('time')['datetime']
+        title_element = article.find('title')
+        link_element = article.find('link')
+        date_element = article.find('pubDate')
 
-        if None in (title_element, link, time_element):
+        if None in (title_element, link_element, date_element):
             continue
-
-        article_link = 'https://decrypt.co' + link
         article_title = title_element.text.strip()
-        article_date = time_element[0:10]
+        stripped_date = date_element.text.strip()
+        article_date = str(dateparser.parse(stripped_date))[0:10]
+        article_link = link_element.text.strip()
         document_title = slugify(article_title, to_lower=True, max_length=60)
 
         ref = scrapped_articles_collection_ref.document(document_title)
@@ -290,26 +289,25 @@ def decrypt():
             'article_link': article_link
         })
 
+
 def cryptoglobe():
-    URL = 'https://www.cryptoglobe.com/latest'
+    URL = 'https://www.cryptoglobe.com/latest/feed/'
     page = requests.get(URL)
 
-    soup = BeautifulSoup(page.content, 'html.parser')
-    results = soup.find('div', class_ = 'g-mb-50--lg')
-    articles = results.find_all('article')
+    soup = BeautifulSoup(page.content, features='xml')
+    articles = soup.find_all('item')
 
     for article in articles:
-        title_element = article.find('h3')
-        link = article.find('a')['href']
-        date_element = article.findAll(class_='list-inline-item')[2]
+        title_element = article.find('title')
+        link_element = article.find('link')
+        date_element = article.find('pubDate')
 
-        if None in (title_element, link, date_element):
+        if None in (title_element, link_element, date_element):
             continue
-
-        article_link = 'https://www.cryptoglobe.com' + link
         article_title = title_element.text.strip()
         stripped_date = date_element.text.strip()
         article_date = str(dateparser.parse(stripped_date))[0:10]
+        article_link = link_element.text.strip()
         document_title = slugify(article_title, to_lower=True, max_length=60)
 
         ref = scrapped_articles_collection_ref.document(document_title)
@@ -322,25 +320,23 @@ def cryptoglobe():
         })
 
 def thedailyhodl():
-    URL = 'https://dailyhodl.com/news/'
+    URL = 'https://dailyhodl.com/feed/'
     page = requests.get(URL)
 
-    soup = BeautifulSoup(page.content, 'html.parser')
-    results = soup.find('div', class_ = 'jeg_posts')
-    articles = results.find_all('article')
+    soup = BeautifulSoup(page.content, features='xml')
+    articles = soup.find_all('item')
 
     for article in articles:
-        title_element = article.find('h3', class_='jeg_post_title')
-        link = article.find('a')['href']
-        date_element = article.find(class_='jeg_meta_date')
+        title_element = article.find('title')
+        link_element = article.find('link')
+        date_element = article.find('pubDate')
 
-        if None in (title_element, link, date_element):
+        if None in (title_element, link_element, date_element):
             continue
-
-        article_link = link
         article_title = title_element.text.strip()
         stripped_date = date_element.text.strip()
         article_date = str(dateparser.parse(stripped_date))[0:10]
+        article_link = link_element.text.strip()
         document_title = slugify(article_title, to_lower=True, max_length=60)
 
         ref = scrapped_articles_collection_ref.document(document_title)
@@ -352,26 +348,25 @@ def thedailyhodl():
             'article_link': article_link
         })
 
+
 def bitcoinist():
-    URL = 'https://bitcoinist.com'
+    URL = 'https://bitcoinist.com/feed/'
     page = requests.get(URL)
 
-    soup = BeautifulSoup(page.content, 'html.parser')
-    results = soup.find('div', class_='news-grid')
-    articles = results.find_all(class_='news four columns wo-gutter grid-medium')
+    soup = BeautifulSoup(page.content, features='xml')
+    articles = soup.find_all('item')
 
     for article in articles:
-        title_element = article.find(class_='title')
-        link = article.find('a')['href']
-        date_element = article.find(class_='time')
+        title_element = article.find('title')
+        link_element = article.find('link')
+        date_element = article.find('pubDate')
 
-        if None in (title_element, link, date_element):
+        if None in (title_element, link_element, date_element):
             continue
-
-        article_link = link
         article_title = title_element.text.strip()
         stripped_date = date_element.text.strip()
         article_date = str(dateparser.parse(stripped_date))[0:10]
+        article_link = link_element.text.strip()
         document_title = slugify(article_title, to_lower=True, max_length=60)
 
         ref = scrapped_articles_collection_ref.document(document_title)
@@ -384,25 +379,23 @@ def bitcoinist():
         })
 
 def ambcrypto():
-    URL = 'https://eng.ambcrypto.com'
+    URL = 'https://eng.ambcrypto.com/feed/'
     page = requests.get(URL)
 
-    soup = BeautifulSoup(page.content, 'html.parser')
-    results = soup.find('div', class_='mvp-feat1-list left relative')
-    articles = results.find_all('a')
+    soup = BeautifulSoup(page.content, features='xml')
+    articles = soup.find_all('item')
 
     for article in articles:
-        title_element = article.find('h2')
-        link = article['href']
-        date_element = article.find(class_='mvp-cd-date')
+        title_element = article.find('title')
+        link_element = article.find('link')
+        date_element = article.find('pubDate')
 
-        if None in (title_element, link, date_element):
+        if None in (title_element, link_element, date_element):
             continue
-
-        article_link = link
         article_title = title_element.text.strip()
         stripped_date = date_element.text.strip()
         article_date = str(dateparser.parse(stripped_date))[0:10]
+        article_link = link_element.text.strip()
         document_title = slugify(article_title, to_lower=True, max_length=60)
 
         ref = scrapped_articles_collection_ref.document(document_title)
@@ -414,25 +407,25 @@ def ambcrypto():
             'article_link': article_link
         })
 
+
 def coinspeaker():
-    URL = 'https://www.coinspeaker.com/news/crypto/'
+    URL = 'https://www.coinspeaker.com/feed'
     page = requests.get(URL)
-    soup = BeautifulSoup(page.content, 'html.parser')
-    results = soup.find(class_='content-news border-t pt20')
-    articles = results.find_all('article')
+
+    soup = BeautifulSoup(page.content, features='xml')
+    articles = soup.find_all('item')
 
     for article in articles:
-        title_element = article.find(class_='news-preview_title')
-        link = article.find('a')['href']
-        date_element = article.find(class_='time')
+        title_element = article.find('title')
+        link_element = article.find('link')
+        date_element = article.find('pubDate')
 
-        if None in (title_element, link, date_element):
+        if None in (title_element, link_element, date_element):
             continue
-
-        article_link = link
         article_title = title_element.text.strip()
         stripped_date = date_element.text.strip()
         article_date = str(dateparser.parse(stripped_date))[0:10]
+        article_link = link_element.text.strip()
         document_title = slugify(article_title, to_lower=True, max_length=60)
 
         ref = scrapped_articles_collection_ref.document(document_title)
@@ -444,6 +437,7 @@ def coinspeaker():
             'article_link': article_link
         })
 
+
 def swissborg():
     URL = 'https://swissborg.com/blog'
     page = requests.get(URL)
@@ -453,7 +447,8 @@ def swissborg():
 
     for article in articles:
         title_element = article.find('p', class_='p1')
-        anchor_element = article.find('a', class_='box-shadow blog w-inline-block')
+        anchor_element = article.find(
+            'a', class_='box-shadow blog w-inline-block')
         date_element = article.find(class_='caption grey date-stamp')
 
         if None in (title_element, anchor_element, date_element):
@@ -463,7 +458,7 @@ def swissborg():
         article_title = title_element.text.strip()
         stripped_date = date_element.text.strip()
         article_date = str(dateparser.parse(stripped_date))[0:10]
-        document_title = slugify(article_title, to_lower = True, max_length = 60)
+        document_title = slugify(article_title, to_lower=True, max_length=60)
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
@@ -484,7 +479,7 @@ def swissborg():
         article_title = title_element.text.strip()
         stripped_date = date.text.strip()
         article_date = str(dateparser.parse(stripped_date))[0:10]
-        document_title = slugify(article_title, to_lower = True, max_length = 60)
+        document_title = slugify(article_title, to_lower=True, max_length=60)
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
@@ -495,6 +490,7 @@ def swissborg():
             'article_link': article_link
         })
     get_featured_post()
+
 
 def medium():
     URL = 'https://medium.com/feed/topic/cryptocurrency'
@@ -526,6 +522,7 @@ def medium():
             'article_date': article_date,
             'article_link': article_link
         })
+
 
 def web_scrapper(event, context):
     coindesk()
