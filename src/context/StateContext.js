@@ -56,8 +56,8 @@ export const StateProvider = ({ children }) => {
 			const _coindeskArticles = _articles.filter((article) => {
 				return article.publisher === 'CoinDesk';
 			});
-			const _cryptopotatoArticles = _articles.filter((article) => {
-				return article.publisher === 'CryptoPotato';
+			const _decryptArticles = _articles.filter((article) => {
+				return article.publisher === 'Decrypt';
 			});
 			const _newsBTCArticles = _articles.filter((article) => {
 				return article.publisher === 'NewsBTC';
@@ -77,8 +77,8 @@ export const StateProvider = ({ children }) => {
 			const _cryptoNewsArticles = _articles.filter((article) => {
 				return article.publisher === 'Crypto News';
 			});
-			const _decryptArticles = _articles.filter((article) => {
-				return article.publisher === 'Decrypt';
+			const _cryptopotatoArticles = _articles.filter((article) => {
+				return article.publisher === 'CryptoPotato';
 			});
 			const _bitcoinistArticles = _articles.filter((article) => {
 				return article.publisher === 'Bitcoinist';
@@ -106,7 +106,7 @@ export const StateProvider = ({ children }) => {
 			});
 			setArticles({
 				coindeskArticles: _coindeskArticles,
-				cryptopotatoArticles: _cryptopotatoArticles,
+				decryptArticles: _decryptArticles,
 				newsBTCArticles: _newsBTCArticles,
 				etheruemWorldNewsArticles: _etheruemWorldNewsArticles,
 				livebitcoinnewsArticles: _livebitcoinnewsArticles,
@@ -114,7 +114,7 @@ export const StateProvider = ({ children }) => {
 				bitcoinDotComArticles: _bitcoinDotComArticles,
 				cryptoBriefingArticles: _cryptoBriefingArticles,
 				cryptoNewsArticles: _cryptoNewsArticles,
-				decryptArticles: _decryptArticles,
+				cryptopotatoArticles: _cryptopotatoArticles,
 				bitcoinistArticles: _bitcoinistArticles,
 				theDailyHodlArticles: _theDailyHodlArticles,
 				cryptoGlobalArticles: _cryptoGlobalArticles,
