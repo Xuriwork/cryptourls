@@ -6,7 +6,7 @@ const Home = ({ articles }) => {
 		<div className='home-component'>
 			<section className='sites-container'>
 				{articles.map((article) => (
-					<LazyLoad key={article.name} height={200} offset={100} once={true}>
+					<LazyLoad key={article.name} height={480} offset={100} once={true}>
 						<div className='publisher-block'>
 							<div
 								className={`publisher-header publisher-header-${article.headerClass}`}
