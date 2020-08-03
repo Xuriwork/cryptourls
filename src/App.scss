@@ -152,7 +152,7 @@ textarea {
 		width: 40px;
 		height: 40px;
 		border: solid 4px;
-		border-color: #000000 #00000010 #00000010 #00000010;
+		border-color: #4d4d70 #00000010 #00000010 #00000010;
 		position: relative;
 		animation-name: stagger;
 		animation-duration: 1.5s;
@@ -162,13 +162,13 @@ textarea {
 
 	@keyframes stagger {
 		25% {
-			border-color: #00000010 #000000 #00000010 #00000010;
+			border-color: #00000010 #4d4d70 #00000010 #00000010;
 		}
 		50% {
-			border-color: #00000010 #00000010 #000000 #00000010;
+			border-color: #00000010 #00000010 #4d4d70 #00000010;
 		}
 		75% {
-			border-color: #00000010 #00000010 #00000010 #000000;
+			border-color: #00000010 #00000010 #00000010 #4d4d70;
 		}
 	}
 }
@@ -656,6 +656,14 @@ textarea {
 
 		.publisher-header-medium {
 			background: #181818;
+		}
+
+		.publisher-header-livebitcoinnews {
+			background: #1F2938;
+
+			img {
+				width: 80px;
+			}
 		}
 
 		.publisher-header-decrypt {

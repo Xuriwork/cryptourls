@@ -101,11 +101,15 @@ export const StateProvider = ({ children }) => {
 			const _mediumArticles = _articles.filter((article) => {
 				return article.publisher === 'Medium';
 			});
+			const _livebitcoinnewsArticles = _articles.filter((article) => {
+				return article.publisher === 'Live Bitcoin News';
+			});
 			setArticles({
 				coindeskArticles: _coindeskArticles,
 				cryptopotatoArticles: _cryptopotatoArticles,
 				newsBTCArticles: _newsBTCArticles,
 				etheruemWorldNewsArticles: _etheruemWorldNewsArticles,
+				livebitcoinnewsArticles: _livebitcoinnewsArticles,
 				eosioArticles: _eosioArticles,
 				bitcoinDotComArticles: _bitcoinDotComArticles,
 				cryptoBriefingArticles: _cryptoBriefingArticles,
@@ -117,7 +121,7 @@ export const StateProvider = ({ children }) => {
 				swissborgArticles: _swissborgArticles,
 				coinspeakerArticles: _coinspeakerArticles,
 				ambCryptoArticles: _ambCryptoArticles,
-				mediumArticles: _mediumArticles
+				mediumArticles: _mediumArticles,
 			});
 			setLoading(false);
 		});

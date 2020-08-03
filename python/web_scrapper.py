@@ -291,7 +291,7 @@ def decrypt():
 
 
 def cryptoglobe():
-    URL = 'https://www.cryptoglobe.com/latest/feed/'
+    URL = 'https://www.cryptoglobe.com/latest/feed'
     page = requests.get(URL)
 
     soup = BeautifulSoup(page.content, features='xml')
@@ -320,7 +320,7 @@ def cryptoglobe():
         })
 
 def thedailyhodl():
-    URL = 'https://dailyhodl.com/feed/'
+    URL = 'https://dailyhodl.com/feed'
     page = requests.get(URL)
 
     soup = BeautifulSoup(page.content, features='xml')
@@ -350,7 +350,7 @@ def thedailyhodl():
 
 
 def bitcoinist():
-    URL = 'https://bitcoinist.com/feed/'
+    URL = 'https://bitcoinist.com/feed'
     page = requests.get(URL)
 
     soup = BeautifulSoup(page.content, features='xml')
@@ -379,7 +379,7 @@ def bitcoinist():
         })
 
 def ambcrypto():
-    URL = 'https://eng.ambcrypto.com/feed/'
+    URL = 'https://eng.ambcrypto.com/feed'
     page = requests.get(URL)
 
     soup = BeautifulSoup(page.content, features='xml')
@@ -523,6 +523,36 @@ def medium():
             'article_link': article_link
         })
 
+def livebitcoinnews():
+    URL = 'https://www.livebitcoinnews.com/feed'
+    page = requests.get(URL)
+
+    soup = BeautifulSoup(page.content, features='xml')
+    articles = soup.find_all('item')
+    print(articles)
+
+    for article in articles:
+        title_element = article.find('title')
+        link_element = article.find('link')
+        date_element = article.find('pubDate')
+
+        if None in (title_element, link_element, date_element):
+            continue
+        article_title = title_element.text.strip()
+        stripped_date = date_element.text.strip()
+        article_date = str(dateparser.parse(stripped_date))[0:10]
+        article_link = link_element.text.strip()
+        document_title = slugify(article_title, to_lower=True, max_length=60)
+
+        ref = scrapped_articles_collection_ref.document(document_title)
+        batch.set(ref, {
+            'publisher': 'Live Bitcoin News',
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link
+        })
+
 
 def web_scrapper(event, context):
     coindesk()
@@ -535,10 +565,12 @@ def web_scrapper(event, context):
     crypto_news()
     decrypt()
     cryptoglobe()
+    thedailyhodl()
     bitcoinist()
     ambcrypto()
     coinspeaker()
     swissborg()
     medium()
+    livebitcoinnews()
 
     batch.commit()

@@ -3,7 +3,7 @@ import { StateContext } from '../../context/StateContext';
 import Home from './Home';
 
 const IMG = (imgName) => {
-	return require(`../../assets/articles_icons/${imgName}`);
+	return require(`../../assets/articles_logos/${imgName}`);
  };
  
 const HomeContainer = () => {
@@ -35,10 +35,10 @@ const HomeContainer = () => {
 			headerClass: 'ewn'
 		},
 		{
-			name: 'Medium',
-			articles: articles.mediumArticles,
-			image: IMG('medium-logo.svg'),
-			headerClass: 'medium'
+			name: 'Live Bitcoin News',
+			articles: articles.livebitcoinnewsArticles,
+			image: IMG('livebitcoinnews-logo.png'),
+			headerClass: 'livebitcoinnews'
 		},
 		{
 			name: 'Crypto Briefing',
