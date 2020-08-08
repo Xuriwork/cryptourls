@@ -17,19 +17,6 @@ export const StateProvider = ({ children }) => {
 	}, [links]);
 
 	useEffect(() => {
-		firebase
-		.firestore()
-		.enablePersistence()
-		.catch((error) => {
-			if (error.code === 'failed-precondition') {
-				console.log(error);
-			} else if (error.code === 'unimplemented') {
-				console.log('The current browser does not support all of the features required to enable persistence.');
-			}
-		});
-	}, [])
-
-	useEffect(() => {
 		const checkSource = async () => {
 			const documentRef = firebase
 			.firestore()
