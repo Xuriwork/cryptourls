@@ -18,23 +18,22 @@ export const StateProvider = ({ children }) => {
 
 	useEffect(() => {
 		const checkSource = async () => {
-			const documentRef = firebase
+			const collectionRef = firebase
 			.firestore()
 			.collection('scrapped_articles')
 			.orderBy('article_date', 'desc')
 
-			let snapshot = await documentRef.get({ source: 'cache' });
+			let snapshot = await collectionRef.get({ source: 'cache' });
 			if (!snapshot.exists) {
-				snapshot = await documentRef.get({ source: 'server'});
+				snapshot = await collectionRef.get({ source: 'server'});
 			};
 
 			return snapshot;
 		};
 
-		const snapshot = checkSource();
+		const collection = checkSource();
 		
-		snapshot
-		.then((snapshot) => {
+		collection.then((snapshot) => {
 			const _articles = [];
 			snapshot.forEach((doc) => {
 				const data = doc.data();
