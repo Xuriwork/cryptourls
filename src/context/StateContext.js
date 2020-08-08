@@ -74,6 +74,9 @@ export const StateProvider = ({ children }) => {
 			const _cryptoBriefingArticles = _articles.filter((article) => {
 				return article.publisher === 'Crypto Briefing';
 			});
+			const _theblockArticles = _articles.filter((article) => {
+				return article.publisher === 'The Block';
+			});
 			const _cryptoNewsArticles = _articles.filter((article) => {
 				return article.publisher === 'Crypto News';
 			});
@@ -95,9 +98,6 @@ export const StateProvider = ({ children }) => {
 			const _ambCryptoArticles = _articles.filter((article) => {
 				return article.publisher === 'AMBCrypto';
 			});
-			const _swissborgArticles = _articles.filter((article) => {
-				return article.publisher === 'SwissBorg';
-			});
 			const _mediumArticles = _articles.filter((article) => {
 				return article.publisher === 'Medium';
 			});
@@ -113,12 +113,12 @@ export const StateProvider = ({ children }) => {
 				eosioArticles: _eosioArticles,
 				bitcoinDotComArticles: _bitcoinDotComArticles,
 				cryptoBriefingArticles: _cryptoBriefingArticles,
+				theblockArticles: _theblockArticles,
 				cryptoNewsArticles: _cryptoNewsArticles,
 				cryptopotatoArticles: _cryptopotatoArticles,
 				bitcoinistArticles: _bitcoinistArticles,
 				theDailyHodlArticles: _theDailyHodlArticles,
 				cryptoGlobalArticles: _cryptoGlobalArticles,
-				swissborgArticles: _swissborgArticles,
 				coinspeakerArticles: _coinspeakerArticles,
 				ambCryptoArticles: _ambCryptoArticles,
 				mediumArticles: _mediumArticles,

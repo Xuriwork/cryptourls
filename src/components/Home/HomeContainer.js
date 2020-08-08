@@ -47,6 +47,12 @@ const HomeContainer = () => {
 			headerClass: 'cryptobriefing'
 		},
 		{
+			name: 'The Block',
+			articles: articles.theblockArticles,
+			image: IMG('theblock-logo.svg'),
+			headerClass: 'theblock'
+		},
+		{
 			name: 'Bitcoinist',
 			articles: articles.bitcoinistArticles,
 			image: IMG('bitcoinist-logo.svg'),
@@ -57,12 +63,6 @@ const HomeContainer = () => {
 			articles: articles.eosioArticles,
 			image: IMG('eosio-logo.svg'),
 			headerClass: 'eosio'
-		},
-		{
-			name: 'SwissBorg',
-			articles: articles.swissborgArticles,
-			image: IMG('swissborg-logo.svg'),
-			headerClass: 'swissborg'
 		},
 		{
 			name: 'Bitcoin.com',
