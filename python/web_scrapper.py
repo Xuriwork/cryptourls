@@ -17,21 +17,23 @@ scrapped_articles_collection_ref = db.collection('scrapped_articles')
 batch = db.batch()
 
 articles_to_extract = [
-    { 'URL': 'https://www.coindesk.com/feed', 'publisher': 'CoinDesk' }, 
-    { 'URL': 'https://decrypt.co/feed', 'publisher': 'Decrypt' },
-    { 'URL': 'https://cryptopotato.com/feed', 'publisher': 'CryptoPotato' },
-    { 'URL': 'https://www.newsbtc.com/feed', 'publisher': 'NewsBTC' },
-    { 'URL': 'https://en.ethereumworldnews.com/feed', 'publisher': 'Ethereum World News' },
-    { 'URL': 'https://cryptobriefing.com/feed', 'publisher': 'Crypto Briefing' },
-    { 'URL': 'https://www.theblockcrypto.com/feed', 'publisher': 'The Block' },
-    { 'URL': 'https://www.cryptoglobe.com/latest/feed', 'publisher': 'CryptoGlobe' },
-    { 'URL': 'https://dailyhodl.com/feed', 'publisher': 'The Daily Hodl' },
-    { 'URL': 'https://bitcoinist.com/feed', 'publisher': 'Bitcoinist' },
-    { 'URL': 'https://eng.ambcrypto.com/feed', 'publisher': 'AMBCrypto' },
-    { 'URL': 'https://www.coinspeaker.com/feed', 'publisher': 'Coinspeaker' },
-    { 'URL': 'https://medium.com/feed/topic/cryptocurrency', 'publisher': 'Medium' },
-    { 'URL': 'https://www.livebitcoinnews.com/feed', 'publisher': 'Live Bitcoin News'}
+    {'URL': 'https://www.coindesk.com/feed', 'publisher': 'CoinDesk'},
+    {'URL': 'https://decrypt.co/feed', 'publisher': 'Decrypt'},
+    {'URL': 'https://cryptopotato.com/feed', 'publisher': 'CryptoPotato'},
+    {'URL': 'https://www.newsbtc.com/feed', 'publisher': 'NewsBTC'},
+    {'URL': 'https://en.ethereumworldnews.com/feed',
+        'publisher': 'Ethereum World News'},
+    {'URL': 'https://cryptobriefing.com/feed', 'publisher': 'Crypto Briefing'},
+    {'URL': 'https://www.theblockcrypto.com/feed', 'publisher': 'The Block'},
+    {'URL': 'https://www.cryptoglobe.com/latest/feed', 'publisher': 'CryptoGlobe'},
+    {'URL': 'https://dailyhodl.com/feed', 'publisher': 'The Daily Hodl'},
+    {'URL': 'https://bitcoinist.com/feed', 'publisher': 'Bitcoinist'},
+    {'URL': 'https://eng.ambcrypto.com/feed', 'publisher': 'AMBCrypto'},
+    {'URL': 'https://www.coinspeaker.com/feed', 'publisher': 'Coinspeaker'},
+    {'URL': 'https://medium.com/feed/topic/cryptocurrency', 'publisher': 'Medium'},
+    {'URL': 'https://www.livebitcoinnews.com/feed', 'publisher': 'Live Bitcoin News'}
 ]
+
 
 def extract_xml_content(URL, publisher):
     page = requests.get(URL)
@@ -58,11 +60,14 @@ def extract_xml_content(URL, publisher):
             'document_title': document_title,
             'article_title': article_title,
             'article_date': article_date,
-            'article_link': article_link
+            'article_link': article_link,
+            'timestamp': firestore.FieldValue.serverTimestamp()
         })
+
 
 for article in articles_to_extract:
     extract_xml_content(article['URL'], article['publisher'])
+
 
 def eosionews(URL):
     page = requests.get(URL)
@@ -89,8 +94,10 @@ def eosionews(URL):
             'document_title': document_title,
             'article_title': article_title,
             'article_date': article_date,
-            'article_link': article_link
+            'article_link': article_link,
+            'timestamp': firestore.FieldValue.serverTimestamp()
         })
+
 
 def cryptonews(URL):
     page = requests.get(URL)
@@ -121,6 +128,7 @@ def cryptonews(URL):
             'article_date': article_date,
             'article_link': article_link
         })
+
 
 def web_scrapper(event, context):
     eosionews('https://eos.io/news')

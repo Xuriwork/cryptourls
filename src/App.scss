@@ -745,7 +745,7 @@ textarea {
 
 .not-found-component {
 	@extend %flex-center-column;
-	height: 100%;
+	height: calc(100% - 132px);
 	background-color: #f7f8f9;
 	color: #222222;
 	font-size: 3rem;

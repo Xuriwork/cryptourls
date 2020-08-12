@@ -20,7 +20,6 @@ export const StateProvider = ({ children }) => {
 
 		axios.get('https://us-central1-cryptourls.cloudfunctions.net/api/articles')
 		.then((res) => {
-			console.log(res.data);
 			const articles = res.data;
 			setArticles({...articles});
 			setLoading(false);
