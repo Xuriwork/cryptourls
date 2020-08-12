@@ -21,7 +21,6 @@ articles_to_extract = [
     { 'URL': 'https://decrypt.co/feed', 'publisher': 'Decrypt' },
     { 'URL': 'https://cryptopotato.com/feed', 'publisher': 'CryptoPotato' },
     { 'URL': 'https://www.newsbtc.com/feed', 'publisher': 'NewsBTC' },
-    { 'URL': 'https://news.bitcoin.com/feed', 'publisher': 'Bitcoin.com News' },
     { 'URL': 'https://en.ethereumworldnews.com/feed', 'publisher': 'Ethereum World News' },
     { 'URL': 'https://cryptobriefing.com/feed', 'publisher': 'Crypto Briefing' },
     { 'URL': 'https://www.theblockcrypto.com/feed', 'publisher': 'The Block' },

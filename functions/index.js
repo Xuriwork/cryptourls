@@ -1,57 +1,62 @@
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const algoliasearch = require('algoliasearch');
+const express = require('express');
+const cors = require('cors');
+
+const app = express();
+app.use(cors({ origin: true }));
 
 admin.initializeApp();
-//const db = admin.firestore();
 
 const algoliaClient = algoliasearch(
 	functions.config().algolia.appid,
 	functions.config().algolia.apikey
 );
-const index = algoliaClient.initIndex('prod_Articles');
-
-// exports.sendCollectionToAlgolia = functions.https.onRequest(
-// 	async (req, res) => {
-// 		const algoliaRecords = [];
-
-// 		const querySnapshot = await db.collection('scrapped_articles').get();
-// 		querySnapshot.docs.forEach((doc) => {
-// 			const document = doc.data();
-
-// 			const record = {
-// 				objectID: doc.id,
-// 				article_title: document.article_title,
-// 				article_link: document.article_link,
-// 				publisher: document.publisher,
-// 			};
-
-// 			algoliaRecords.push(record);
-// 		});
-
-// 		index
-// 			.saveObjects(algoliaRecords)
-// 			.then(({ objectIDs }) => {
-// 				console.log(objectIDs);
-// 				return res.status(200).send(objectIDs);
-// 			})
-// 			.catch((error) => {
-// 				console.log(error);
-// 			});
-// 	}
-// );
+const index = algoliaClient.initIndex('prodArticles');
 
 exports.addPostToIndex = functions.firestore
-	.document('scrapped_articles/{articleId}')
+	.document('scrappedarticles/{articleId}')
 	.onCreate((snapshot, context) => {
 		const data = snapshot.data();
 		const objectID = context.params.articleId;
 
 		return index.saveObject({
 			objectID,
-			article_title: data.article_title,
-			article_link: data.article_link,
-			article_date: data.article_date,
+			articletitle: data.articletitle,
+			articlelink: data.articlelink,
+			articledate: data.articledate,
 			publisher: data.publisher,
 		});
 	});
+
+app.get('/articles', (req, res) => {
+	const db = admin.firestore();
+	db.collection('scrapped_articles')
+		.orderBy('article_date', 'desc')
+		.get()
+		.then((snapshot) => {
+			const unsortedArticles = [];
+
+			snapshot.forEach((doc) => {
+				const data = doc.data();
+				unsortedArticles.push(data);
+			});
+			
+			const articles = {};
+			unsortedArticles.forEach((article) => {
+				article.publisher = article.publisher.toLowerCase().replace(/ /g,'') + 'Articles';
+				
+				if (!articles.hasOwnProperty(article.publisher)) {
+					articles[article.publisher] = [];
+				}
+				articles[article.publisher].push(article);
+			});
+			
+			res.set('Cache-Control', 'public, max-age=600, s-maxage=1800');
+			return res.status(201).send(articles);
+		})
+		.catch((error) => console.error(error));
+});
+
+exports.api = functions.https.onRequest(app);

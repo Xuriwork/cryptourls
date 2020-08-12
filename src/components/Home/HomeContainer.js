@@ -9,7 +9,7 @@ const IMG = (imgName) => {
 const HomeContainer = () => {
 	const { articles } = useContext(StateContext);
 
-	const articlesData = [
+	const publishersData = [
 		{
 			name: 'Decrypt',
 			articles: articles.decryptArticles,
@@ -24,13 +24,13 @@ const HomeContainer = () => {
 		},
 		{
 			name: 'NewsBTC',
-			articles: articles.newsBTCArticles,
+			articles: articles.newsbtcArticles,
 			image: IMG('newsbtc-logo.png'),
 			headerClass: 'newsbtc'
 		},
 		{
 			name: 'Etheruem World News',
-			articles: articles.etheruemWorldNewsArticles,
+			articles: articles.ethereumworldnewsArticles,
 			image: IMG('Ethereum-World-News.png'),
 			headerClass: 'ewn'
 		},
@@ -42,7 +42,7 @@ const HomeContainer = () => {
 		},
 		{
 			name: 'Crypto Briefing',
-			articles: articles.cryptoBriefingArticles,
+			articles: articles.cryptobriefingArticles,
 			image: IMG('Crypto-Briefing-Logo.png'),
 			headerClass: 'cryptobriefing'
 		},
@@ -65,14 +65,8 @@ const HomeContainer = () => {
 			headerClass: 'eosio'
 		},
 		{
-			name: 'Bitcoin.com',
-			articles: articles.bitcoinDotComArticles,
-			image: IMG('bitcoindotcom-logo.png'),
-			headerClass: 'bitcoindc'
-		},
-		{
 			name: 'CryptoPotato',
-			articles: articles.coindeskArticles,
+			articles: articles.cryptopotatoArticles,
 			image: IMG('crypto-potato-logo.png'),
 			headerClass: 'cryptopotato'
 		},
@@ -84,32 +78,32 @@ const HomeContainer = () => {
 		},
 		{
 			name: 'AMBCrypto',
-			articles: articles.ambCryptoArticles,
+			articles: articles.ambcryptoArticles,
 			image: IMG('ambcrypto-logo.png'),
 			headerClass: 'ambcrypto'
 		},
 		{
 			name: 'The Daily Hodl',
-			articles: articles.bitcoinistArticles,
+			articles: articles.thedailyhodlArticles,
 			image: IMG('dailyhodl-logo.png'),
 			headerClass: 'dailyhodl'
 		},
 		{
 			name: 'CryptoGlobe',
-			articles: articles.bitcoinistArticles,
+			articles: articles.cryptoglobeArticles,
 			image: IMG('crypto-globe-logo.png'),
 			headerClass: 'cryptoglobe'
 		},
 		{
 			name: 'Crypto News',
-			articles: articles.cryptoNewsArticles,
+			articles: articles.cryptonewsArticles,
 			image: IMG('cryptonews-logo.png'),
 			headerClass: 'cryptonews'
 		}
 	];
 
 	return (
-		<Home articles={articlesData} />
+		<Home publishers={publishersData} />
 	);
 };
 

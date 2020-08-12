@@ -1,21 +1,21 @@
 import React from 'react';
 import LazyLoad from 'react-lazyload';
 
-const Home = ({ articles }) => {
+const Home = ({ publishers }) => {
 	return (
 		<div className='home-component'>
 			<section className='sites-container'>
-				{articles.map((article) => (
-					<LazyLoad key={article.name} height={480} offset={100} once={true}>
+				{publishers.map((publisher) => (
+					<LazyLoad key={publisher.name} height={480} offset={100} once={true}>
 						<div className='publisher-block'>
 							<div
-								className={`publisher-header publisher-header-${article.headerClass}`}
+								className={`publisher-header publisher-header-${publisher.headerClass}`}
 							>
-								<img src={article.image} alt='crypto potato logo' />
-								{article.name}
+								<img src={publisher.image} alt='crypto potato logo' />
+								{publisher.name}
 							</div>
 							<div className='site-container'>
-								{article.articles.map((article) => {
+								{publisher.articles.map((article) => {
 									return (
 										<div
 											key={article.document_title}
