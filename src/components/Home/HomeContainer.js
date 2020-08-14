@@ -29,6 +29,12 @@ const HomeContainer = () => {
 			headerClass: 'newsbtc'
 		},
 		{
+			name: 'Crypto Briefing',
+			articles: articles.cryptobriefingArticles,
+			image: IMG('Crypto-Briefing-Logo.png'),
+			headerClass: 'cryptobriefing'
+		},
+		{
 			name: 'Etheruem World News',
 			articles: articles.ethereumworldnewsArticles,
 			image: IMG('Ethereum-World-News.png'),
@@ -39,12 +45,6 @@ const HomeContainer = () => {
 			articles: articles.livebitcoinnewsArticles,
 			image: IMG('livebitcoinnews-logo.png'),
 			headerClass: 'livebitcoinnews'
-		},
-		{
-			name: 'Crypto Briefing',
-			articles: articles.cryptobriefingArticles,
-			image: IMG('Crypto-Briefing-Logo.png'),
-			headerClass: 'cryptobriefing'
 		},
 		{
 			name: 'The Block',

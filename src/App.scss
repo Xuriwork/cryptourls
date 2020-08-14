@@ -679,6 +679,10 @@ textarea {
 			}
 		}
 
+		.publisher-header-cryptobriefing {
+			background: linear-gradient(to bottom, #3b3b3b, #222222);
+		}
+
 		.publisher-header-ambcrypto {
 			background: linear-gradient(to bottom, #fff, #f5f5f5);
 			color: #000;
@@ -691,10 +695,6 @@ textarea {
 		.publisher-header-cryptonews {
 			background: linear-gradient(to bottom, #796ed8, #bb3693);
 			color: white;
-		}
-
-		.publisher-header-cryptobriefing {
-			background: linear-gradient(to bottom, #ffeab0, #f5cf7e);
 		}
 
 		.site-container {
