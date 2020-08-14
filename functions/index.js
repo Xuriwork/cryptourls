@@ -24,9 +24,9 @@ exports.addPostToIndex = functions.firestore
 
 		return index.saveObject({
 			objectID,
-			articletitle: data.articletitle,
-			articlelink: data.articlelink,
-			articledate: data.articledate,
+			article_title: data.article_title,
+			article_link: data.article_link,
+			article_date: data.article_date,
 			publisher: data.publisher,
 		});
 	});
