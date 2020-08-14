@@ -1,13 +1,19 @@
-import React, { useContext } from 'react';
-import { StateContext } from '../../context/StateContext';
+import React from 'react';
+import useSWR from 'swr';
 import Home from './Home';
+import Loading from '../Loading';
 
 const IMG = (imgName) => {
 	return require(`../../assets/articles_logos/${imgName}`);
  };
+
+const fetcher = (url) => fetch(url).then((response) => response.json());
+const API_URL = process.env.REACT_APP_API_URL;
  
 const HomeContainer = () => {
-	const { articles } = useContext(StateContext);
+	const { data: articles, error } = useSWR(API_URL, fetcher);
+	if (error) return console.error(error);
+	if (!articles) return <Loading />;
 
 	const publishersData = [
 		{

@@ -18,7 +18,8 @@
     "react-instantsearch-dom": "^6.5.0",
     "react-lazyload": "^3.0.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "swr": "^0.3.0"
   },
   "scripts": {
     "start": "cross-env BROWSER=none react-scripts start",
