@@ -23,4 +23,6 @@ firebase.firestore().enablePersistence()
       }
   });
 
+export const emailsCollection = firebase.firestore().collection('emails');
+
 export default firebase;
