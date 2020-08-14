@@ -59,12 +59,6 @@ const HomeContainer = () => {
 			headerClass: 'bitcoinist'
 		},
 		{
-			name: 'EOSIO',
-			articles: articles.eosioArticles,
-			image: IMG('eosio-logo.svg'),
-			headerClass: 'eosio'
-		},
-		{
 			name: 'CryptoPotato',
 			articles: articles.cryptopotatoArticles,
 			image: IMG('crypto-potato-logo.png'),

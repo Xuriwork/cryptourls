@@ -4,25 +4,21 @@ import requests
 from bs4 import BeautifulSoup
 from slugify import slugify
 import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+from firebase_admin import credentials, firestore
 
 cred = credentials.ApplicationDefault()
-firebase_admin.initialize_app(cred, {
-    'projectId': 'cryptourls',
-})
+firebase_admin.initialize_app(cred, { 'projectId': 'cryptourls' })
 
-db = firestore.client()
-scrapped_articles_collection_ref = db.collection('scrapped_articles')
+db = firestore.Client()
 batch = db.batch()
+scrapped_articles_collection_ref = db.collection('scrapped_articles')
 
 articles_to_extract = [
     {'URL': 'https://www.coindesk.com/feed', 'publisher': 'CoinDesk'},
     {'URL': 'https://decrypt.co/feed', 'publisher': 'Decrypt'},
     {'URL': 'https://cryptopotato.com/feed', 'publisher': 'CryptoPotato'},
     {'URL': 'https://www.newsbtc.com/feed', 'publisher': 'NewsBTC'},
-    {'URL': 'https://en.ethereumworldnews.com/feed',
-        'publisher': 'Ethereum World News'},
+    {'URL': 'https://en.ethereumworldnews.com/feed', 'publisher': 'Ethereum World News'},
     {'URL': 'https://cryptobriefing.com/feed', 'publisher': 'Crypto Briefing'},
     {'URL': 'https://www.theblockcrypto.com/feed', 'publisher': 'The Block'},
     {'URL': 'https://www.cryptoglobe.com/latest/feed', 'publisher': 'CryptoGlobe'},
@@ -33,7 +29,6 @@ articles_to_extract = [
     {'URL': 'https://medium.com/feed/topic/cryptocurrency', 'publisher': 'Medium'},
     {'URL': 'https://www.livebitcoinnews.com/feed', 'publisher': 'Live Bitcoin News'}
 ]
-
 
 def extract_xml_content(URL, publisher):
     page = requests.get(URL)
@@ -53,6 +48,7 @@ def extract_xml_content(URL, publisher):
         article_date = str(dateparser.parse(stripped_date))[0:10]
         article_link = link_element.text.strip()
         document_title = slugify(article_title, to_lower=True, max_length=60)
+        timestamp = str(datetime.now())[0:10]
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
@@ -61,43 +57,8 @@ def extract_xml_content(URL, publisher):
             'article_title': article_title,
             'article_date': article_date,
             'article_link': article_link,
-            'timestamp': firestore.FieldValue.serverTimestamp()
+            'timestamp': timestamp,
         })
-
-
-for article in articles_to_extract:
-    extract_xml_content(article['URL'], article['publisher'])
-
-
-def eosionews(URL):
-    page = requests.get(URL)
-
-    soup = BeautifulSoup(page.content, 'html.parser')
-    result = soup.find(class_='post-grid')
-    articles = result.find_all('article')
-
-    for article in articles:
-        article_link = article.find('a')['href']
-        title_element = article.find('h2', class_='entry-title')
-        date = article.find('time')['datetime']
-
-        if None in (title_element, article_link, date):
-            continue
-
-        article_title = title_element.text
-        article_date = str(dateparser.parse(date))[0:10]
-        document_title = slugify(article_title, to_lower=True, max_length=60)
-
-        ref = scrapped_articles_collection_ref.document(document_title)
-        batch.set(ref, {
-            'publisher': 'EOSIO',
-            'document_title': document_title,
-            'article_title': article_title,
-            'article_date': article_date,
-            'article_link': article_link,
-            'timestamp': firestore.FieldValue.serverTimestamp()
-        })
-
 
 def cryptonews(URL):
     page = requests.get(URL)
@@ -119,6 +80,7 @@ def cryptonews(URL):
         article_link = URL + link
         article_date = time_element[0:10]
         document_title = slugify(article_title, to_lower=True, max_length=60)
+        timestamp = str(datetime.now())[0:10]
 
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
@@ -126,12 +88,12 @@ def cryptonews(URL):
             'document_title': document_title,
             'article_title': article_title,
             'article_date': article_date,
-            'article_link': article_link
+            'article_link': article_link,
+            'timestamp': timestamp,
         })
 
-
 def web_scrapper(event, context):
-    eosionews('https://eos.io/news')
     cryptonews('https://cryptonews.com')
-
+    for article in articles_to_extract:
+        extract_xml_content(article['URL'], article['publisher'])
     batch.commit()
