@@ -35,9 +35,11 @@ exports.deleteOldItems = functions.pubsub.schedule('every 1 days').onRun((contex
 	const articleRef = db.collection('scrapped_articles');
 	const batch = db.batch();
 	const date = new Date();
-	const cutoffDateInSeconds = date.setDate(date.getDate() - 2);
+	const cutoffDateInSeconds = date.setDate(date.getDate() - 1);
 	const cutoff = new Date(cutoffDateInSeconds);
-	const oldArticles = articleRef.where('timestamp', '<', cutoff);
+	const slicedCutoff = cutoff.toISOString().slice(0, 10);
+	const oldArticles = articleRef.where('article_date', '<', slicedCutoff);
+
 	oldArticles.get().then((snapshot) => {
 		const objectsToDelete = [];
 		snapshot.forEach((doc) => {
@@ -46,10 +48,12 @@ exports.deleteOldItems = functions.pubsub.schedule('every 1 days').onRun((contex
 			batch.delete(doc.ref);
 		});
 		index.deleteObjects(objectsToDelete);
-		return batch.commit();
+		batch.commit();
+		return res.send(objectsToDelete);
 	})
 	.catch((error) => console.error(error));
-})
+
+});
 
 app.get('/articles', (req, res) => {
 	db.collection('scrapped_articles')

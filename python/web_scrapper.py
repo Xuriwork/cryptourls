@@ -27,7 +27,8 @@ articles_to_extract = [
     {'URL': 'https://eng.ambcrypto.com/feed', 'publisher': 'AMBCrypto'},
     {'URL': 'https://www.coinspeaker.com/feed', 'publisher': 'Coinspeaker'},
     {'URL': 'https://medium.com/feed/topic/cryptocurrency', 'publisher': 'Medium'},
-    {'URL': 'https://www.livebitcoinnews.com/feed', 'publisher': 'Live Bitcoin News'}
+    {'URL': 'https://www.livebitcoinnews.com/feed', 'publisher': 'Live Bitcoin News'},
+    {'URL': 'https://www.cryptoslate.com/rss', 'publisher': 'CryptoSlate'}
 ]
 
 def extract_xml_content(URL, publisher):

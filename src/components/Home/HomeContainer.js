@@ -83,6 +83,12 @@ const HomeContainer = () => {
 			headerClass: 'ambcrypto'
 		},
 		{
+			name: 'CryptoSlate',
+			articles: articles.cryptoslateArticles,
+			image: IMG('cryptoslate-logo.png'),
+			headerClass: 'cryptoslate'
+		},
+		{
 			name: 'The Daily Hodl',
 			articles: articles.thedailyhodlArticles,
 			image: IMG('dailyhodl-logo.png'),
