@@ -31,7 +31,7 @@ exports.addPostToIndex = functions.firestore
 		});
 	});
 
-exports.deleteOldItems = functions.pubsub.schedule('every 1 days').onRun((context) => {
+exports.deleteOldItems = functions.pubsub.schedule('every 4 hours').onRun((context) => {
 	const articleRef = db.collection('scrapped_articles');
 	const batch = db.batch();
 	const date = new Date();
