@@ -31,29 +31,32 @@ exports.addPostToIndex = functions.firestore
 		});
 	});
 
-exports.deleteOldItems = functions.pubsub.schedule('every 4 hours').onRun((context) => {
-	const articleRef = db.collection('scrapped_articles');
-	const batch = db.batch();
-	const date = new Date();
-	const cutoffDateInSeconds = date.setDate(date.getDate() - 1);
-	const cutoff = new Date(cutoffDateInSeconds);
-	const slicedCutoff = cutoff.toISOString().slice(0, 10);
-	const oldArticles = articleRef.where('article_date', '<', slicedCutoff);
+exports.deleteOldItems = functions.pubsub
+	.schedule('every 4 hours')
+	.onRun((context) => {
+		const articleRef = db.collection('scrapped_articles');
+		const batch = db.batch();
+		const date = new Date();
+		const cutoffDateInSeconds = date.setDate(date.getDate() - 1);
+		const cutoff = new Date(cutoffDateInSeconds);
+		const slicedCutoff = cutoff.toISOString().slice(0, 10);
+		const oldArticles = articleRef.where('article_date', '<', slicedCutoff);
 
-	oldArticles.get().then((snapshot) => {
-		const objectsToDelete = [];
-		snapshot.forEach((doc) => {
-			const document_title = doc.data().document_title;
-			objectsToDelete.push(document_title);
-			batch.delete(doc.ref);
-		});
-		index.deleteObjects(objectsToDelete);
-		batch.commit();
-		return res.send(objectsToDelete);
-	})
-	.catch((error) => console.error(error));
-
-});
+		oldArticles
+			.get()
+			.then((snapshot) => {
+				const objectsToDelete = [];
+				snapshot.forEach((doc) => {
+					const document_title = doc.data().document_title;
+					objectsToDelete.push(document_title);
+					batch.delete(doc.ref);
+				});
+				index.deleteObjects(objectsToDelete);
+				batch.commit();
+				return res.send(objectsToDelete);
+			})
+			.catch((error) => console.error(error));
+	});
 
 app.get('/articles', (req, res) => {
 	db.collection('scrapped_articles')
@@ -66,21 +69,45 @@ app.get('/articles', (req, res) => {
 				const data = doc.data();
 				unsortedArticles.push(data);
 			});
-			
+
 			const articles = {};
 			unsortedArticles.forEach((article) => {
-				article.publisher = article.publisher.toLowerCase().replace(/ /g,'') + 'Articles';
-				
+				article.publisher =
+					article.publisher.toLowerCase().replace(/ /g, '') + 'Articles';
 				if (!articles.hasOwnProperty(article.publisher)) {
 					articles[article.publisher] = [];
 				}
 				articles[article.publisher].push(article);
 			});
-			
+
 			res.set('Cache-Control', 'public, max-age=600, s-maxage=1800');
 			return res.status(201).send(articles);
 		})
-		.catch((error) => console.error(error));
+		.catch((error) => {
+			console.error(error);
+			return res.status(500).json({ error });
+		});
+});
+
+app.get('/articles/:publisherName', (req, res) => {
+	const articleName = req.params.publisherName;
+
+	db.collection('scrapped_articles')
+		.where('publisher' === articleName)
+		.orderBy('article_date', 'desc')
+		.get()
+		.then((snapshot) => {
+			const articles = [];
+			snapshot.forEach((doc) => {
+				const data = doc.data();
+				articles.push(data);
+			});
+			return res.status(200).json(articles);
+		})
+		.catch((error) => {
+			console.error(error);
+			return res.status(500).json({ error });
+		});
 });
 
 exports.api = functions.https.onRequest(app);
