@@ -718,6 +718,10 @@ textarea {
 		.card-content-container {
 			display: flex;
 			flex-direction: column;
+			
+			&:not(:last-of-type) {
+				margin-bottom: 10px;
+			}
 
 			article {
 				display: flex;
@@ -730,6 +734,7 @@ textarea {
 				font-size: 1rem;
 				color: #0060a0;
 				text-decoration: none;
+				padding-bottom: 10px;
 				border-bottom: 1px solid rgba(0, 96, 160, 0.15);
 
 				&:hover {
