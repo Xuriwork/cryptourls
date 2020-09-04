@@ -9,10 +9,7 @@ app.use(cors({ origin: true }));
 
 admin.initializeApp();
 
-const algoliaClient = algoliasearch(
-	functions.config().algolia.appid,
-	functions.config().algolia.apikey
-);
+const algoliaClient = algoliasearch();
 const index = algoliaClient.initIndex('prod_Articles');
 const db = admin.firestore();
 
@@ -114,7 +111,7 @@ app.get('/articles/:publisherName', (req, res) => {
 		res.status(404).send('404, Publisher not found.');
 	} else {
 		db.collection('scrapped_articles')
-			.where('publisher' === articleName)
+			.where('publisher', '==', articleName)
 			.orderBy('article_date', 'desc')
 			.get()
 			.then((snapshot) => {
