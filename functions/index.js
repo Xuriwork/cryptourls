@@ -91,23 +91,45 @@ app.get('/articles', (req, res) => {
 
 app.get('/articles/:publisherName', (req, res) => {
 	const articleName = req.params.publisherName;
+	const validPublishers = [
+		'CoinDesk',
+		'Decrypt',
+		'CryptoPotato',
+		'NewsBTC',
+		'Ethereum World News',
+		'Crypto Briefing',
+		'The Block',
+		'CryptoGlobe',
+		'The Daily Hodl',
+		'Bitcoinist',
+		'AMBCrypto',
+		'Coinspeaker',
+		'Medium',
+		'Live Bitcoin News',
+		'CryptoSlate',
+		'Crypto News',
+	];
 
-	db.collection('scrapped_articles')
-		.where('publisher' === articleName)
-		.orderBy('article_date', 'desc')
-		.get()
-		.then((snapshot) => {
-			const articles = [];
-			snapshot.forEach((doc) => {
-				const data = doc.data();
-				articles.push(data);
+	if (!validPublishers.includes(articleName)) {
+		res.status(404).send('404, Publisher not found.');
+	} else {
+		db.collection('scrapped_articles')
+			.where('publisher' === articleName)
+			.orderBy('article_date', 'desc')
+			.get()
+			.then((snapshot) => {
+				const articles = [];
+				snapshot.forEach((doc) => {
+					const data = doc.data();
+					articles.push(data);
+				});
+				return res.status(200).json(articles);
+			})
+			.catch((error) => {
+				console.error(error);
+				return res.status(500).json({ error });
 			});
-			return res.status(200).json(articles);
-		})
-		.catch((error) => {
-			console.error(error);
-			return res.status(500).json({ error });
-		});
+	}
 });
 
 exports.api = functions.https.onRequest(app);
