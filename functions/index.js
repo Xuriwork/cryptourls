@@ -9,7 +9,10 @@ app.use(cors({ origin: true }));
 
 admin.initializeApp();
 
-const algoliaClient = algoliasearch();
+const algoliaClient = algoliasearch(
+	functions.config().algolia.appid,
+	functions.config().algolia.apikey
+);
 const index = algoliaClient.initIndex('prod_Articles');
 const db = admin.firestore();
 
