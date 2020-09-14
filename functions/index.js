@@ -72,8 +72,7 @@ app.get('/articles', (req, res) => {
 
 			const articles = {};
 			unsortedArticles.forEach((article) => {
-				article.publisher =
-					article.publisher.toLowerCase().replace(/ /g, '') + 'Articles';
+				article.publisher =	article.publisher.toLowerCase().replace(/ /g, '') + 'Articles';
 				if (!articles.hasOwnProperty(article.publisher)) {
 					articles[article.publisher] = [];
 				}
@@ -81,7 +80,7 @@ app.get('/articles', (req, res) => {
 			});
 
 			res.set('Cache-Control', 'public, max-age=600, s-maxage=1800');
-			return res.status(201).send(articles);
+			return res.status(201).json(articles);
 		})
 		.catch((error) => {
 			console.error(error);
