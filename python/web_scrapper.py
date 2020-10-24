@@ -25,7 +25,6 @@ articles_to_extract = [
     {'URL': 'https://dailyhodl.com/feed', 'publisher': 'The Daily Hodl'},
     {'URL': 'https://bitcoinist.com/feed', 'publisher': 'Bitcoinist'},
     {'URL': 'https://eng.ambcrypto.com/feed', 'publisher': 'AMBCrypto'},
-    {'URL': 'https://www.coinspeaker.com/feed', 'publisher': 'Coinspeaker'},
     {'URL': 'https://medium.com/feed/topic/cryptocurrency', 'publisher': 'Medium'},
     {'URL': 'https://www.livebitcoinnews.com/feed', 'publisher': 'Live Bitcoin News'},
     {'URL': 'https://www.cryptoslate.com/rss', 'publisher': 'CryptoSlate'}
@@ -54,6 +53,36 @@ def extract_xml_content(URL, publisher):
         ref = scrapped_articles_collection_ref.document(document_title)
         batch.set(ref, {
             'publisher': publisher,
+            'document_title': document_title,
+            'article_title': article_title,
+            'article_date': article_date,
+            'article_link': article_link,
+            'timestamp': timestamp,
+        })
+
+def coinspeaker(URL):
+    page = requests.get(URL)
+
+    soup = BeautifulSoup(page.content, features='html')
+    articles = soup.find_all('article', class_='news-preview')
+
+    for article in articles:
+        title_element = article.find('h3', class_='news-preview_title')
+        link_element = title_element.find('a')['href']
+        date_element = article.find('time')
+
+        if None in (title_element, link_element, date_element):
+            continue
+        article_title = title_element.text.strip()
+        stripped_date = date_element.text.strip()
+        article_date = str(dateparser.parse(stripped_date))[0:10]
+        article_link = link_element.strip()
+        document_title = slugify(article_title, to_lower=True, max_length=60)
+        timestamp = str(datetime.now())[0:10]
+
+        ref = scrapped_articles_collection_ref.document(document_title)
+        batch.set(ref, {
+            'publisher': 'Coinspeaker',
             'document_title': document_title,
             'article_title': article_title,
             'article_date': article_date,
@@ -95,6 +124,7 @@ def cryptonews(URL):
 
 def web_scrapper(event, context):
     cryptonews('https://cryptonews.com')
+    coinspeaker('https://www.coinspeaker.com/news/crypto')
     for article in articles_to_extract:
         extract_xml_content(article['URL'], article['publisher'])
     batch.commit()

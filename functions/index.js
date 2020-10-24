@@ -32,7 +32,7 @@ exports.addPostToIndex = functions.firestore
 	});
 
 exports.deleteOldItems = functions.pubsub
-	.schedule('every 4 hours')
+	.schedule('every 24 hours')
 	.onRun((context) => {
 		const articleRef = db.collection('scrapped_articles');
 		const batch = db.batch();
@@ -52,8 +52,7 @@ exports.deleteOldItems = functions.pubsub
 					batch.delete(doc.ref);
 				});
 				index.deleteObjects(objectsToDelete);
-				batch.commit();
-				return res.send(objectsToDelete);
+				return batch.commit();
 			})
 			.catch((error) => console.error(error));
 	});
